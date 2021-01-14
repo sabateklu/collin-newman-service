@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // eslint-disable-next-line import/no-extraneous-dependencies
 const Faker = require('faker');
 const Review = require('../../database/Reviews.js');
