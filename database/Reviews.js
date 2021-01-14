@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const db = require('./index.js');
 
 const reviewSchema = new mongoose.Schema({
   userName: String,
