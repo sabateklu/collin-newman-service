@@ -1,0 +1,45 @@
+{
+  "name": "collin-newman-service",
+  "version": "1.0.0",
+  "description": "handle the display of reviews for a selected trip-advisor location",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "scrape": "node ./dev/unsplashScraper/scrape.js",
+    "seed": "./dev/database/seed.js",
+    "start": "nodemon ./server/index.js",
+    "react:dev": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Slack-Reactor/collin-newman-service.git"
+  },
+  "keywords": [
+    "reviews"
+  ],
+  "author": "collin-newman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Slack-Reactor/collin-newman-service/issues"
+  },
+  "homepage": "https://github.com/Slack-Reactor/collin-newman-service#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.11"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "eslint": "^7.17.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "faker": "^5.1.0",
+    "nodemon": "^2.0.7",
+    "webpack": "^5.14.0",
+    "webpack-cli": "^4.3.1"
+  }
+}
