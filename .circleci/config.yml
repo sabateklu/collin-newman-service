@@ -1,7 +1,23 @@
 version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-workflows:
-  node-tests:
-    jobs:
-      - node/test
+jobs:
+  run_tests:
+    docker:
+      - image: circleci/node:7.10
+    steps:
+      - checkout
+      - run:
+          name: Install npm dependecies
+          command: |
+            npm install --save
+      - run:
+          name: Run unit tests
+          command: |
+            ./node_modules/jest/bin/jest spec/ --reporter-options reportDir=spec-results,reportFilename=spec-results
+      - store_test_results:
+          path: spec-results
+      - store_artifacts:
+          path: spec-results
+  workflows:
+    build_test:
+      jobs:
+        - run_tests

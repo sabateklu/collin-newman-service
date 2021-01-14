@@ -4,9 +4,11 @@
   "description": "handle the display of reviews for a selected trip-advisor location",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --colors",
     "scrape": "node ./dev/unsplashScraper/scrape.js",
-    "seed": "./dev/database/seed.js",
+    "seed": "node ./dev/database/seed.js",
     "start": "nodemon ./server/index.js",
     "react:dev": "webpack --watch",
     "webpack": "webpack --json > analysis.json"
@@ -28,6 +30,7 @@
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "enzyme-adapter-react-16": "^1.15.5",
     "express": "^4.17.1",
     "mongoose": "^5.11.11",
     "react": "^17.0.1",
@@ -37,6 +40,7 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
+    "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
     "enzyme": "^3.11.0",
     "eslint": "^7.17.0",
@@ -47,8 +51,10 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "faker": "^5.1.0",
     "jest": "^26.6.3",
+    "jest-cli": "^26.6.3",
     "nodemon": "^2.0.7",
     "puppeteer": "^5.5.0",
+    "react-addons-test-utils": "^15.6.2",
     "webpack": "^5.14.0",
     "webpack-cli": "^4.3.1"
   }
