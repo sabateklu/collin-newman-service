@@ -1,10 +1,10 @@
 import React from 'react';
 import Enzyme, {shallow, mount} from 'enzyme';
-import App from '../../src/components/App';
+import ReviewList from '../../src/components/ReviewList';
 
-describe('App component', () => {
+describe('ReviewList component', () => {
   test('Renders', () => {
-    const wrapper = shallow(<App />);
+    const wrapper = shallow(<ReviewList />);
 
     expect(wrapper.exists()).toBe(true);
   });

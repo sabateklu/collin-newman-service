@@ -16,8 +16,8 @@ const ReviewCard = () => (
       <p>Helpful votes counter</p>
     </div>
     <div className="reviewCardButtons">
-      <button type="button">Helpful</button>
-      <button type="button">Share</button>
+      <button className="button-reviewCard" type="button">Helpful</button>
+      <button className="button-reviewCard" type="button">Share</button>
     </div>
   </div>
 );
