@@ -1,4 +1,8 @@
 import React from 'react';
+import ReviewListControls from './ReviewListControls';
+import SearchBar from './SearchBar';
+import ReviewList from './ReviewList';
+import Pagination from './Pagination';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +15,10 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello from react</h1>
+        <ReviewListControls />
+        <SearchBar />
+        <ReviewList />
+        <Pagination />
       </div>
     );
   }
