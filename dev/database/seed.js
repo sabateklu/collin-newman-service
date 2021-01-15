@@ -23,6 +23,7 @@ const generateData = () => {
   Review.create(dummyData, (err) => {
     if (err) {
       console.log('Err', err);
+      return;
     } else {
       console.log('Seeding complete');
       return;
