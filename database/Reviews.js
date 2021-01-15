@@ -14,6 +14,43 @@ const reviewSchema = new mongoose.Schema({
   helpfulVotes: Number,
 });
 
-const Review = mongoose.model('Review', reviewSchema);
+const Reviews = mongoose.model('Review', reviewSchema);
 
-module.exports = Review;
+const findAll = (cb) => {
+  Reviews.find({}, (err, data) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, data);
+    }
+  });
+};
+
+const create = (review, cb) => {
+  Reviews.create(review, (err, data) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, data);
+    }
+  });
+};
+
+const incHelpfulCounter = (reviewId, cb) => {
+  const id = { id: reviewId };
+  const update = { $inc: { helpfulVotes: 1 } };
+
+  Reviews.findByIdAndUpdate(id, update, (err, data) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, data);
+    }
+  });
+};
+
+module.exports = {
+  findAll,
+  create,
+  incHelpfulCounter,
+};
