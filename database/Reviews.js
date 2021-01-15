@@ -4,6 +4,7 @@ const db = require('./index.js');
 
 const reviewSchema = new mongoose.Schema({
   userName: String,
+  profilePic: String,
   created_at: { type: Date, default: Date.now },
   userHomeLocation: String,
   images: [String],
@@ -12,6 +13,7 @@ const reviewSchema = new mongoose.Schema({
   reviewBody: String,
   dateOfExperience: Date,
   helpfulVotes: Number,
+  destination: String,
 });
 
 const Reviews = mongoose.model('Review', reviewSchema);
@@ -49,8 +51,20 @@ const incHelpfulCounter = (reviewId, cb) => {
   });
 };
 
+const findByDestination = (destination, cb) => {
+  const review = { destination };
+  Reviews.find(review, (err, data) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, data);
+    }
+  });
+};
+
 module.exports = {
   findAll,
   create,
   incHelpfulCounter,
+  findByDestination,
 };

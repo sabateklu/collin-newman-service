@@ -18,9 +18,20 @@ app.get('/api/reviews', (req, res) => {
   });
 });
 
+app.get('/api/reviews/:location', (req, res) => {
+  Reviews.findByDestination(req.params.location, (err, data) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(data);
+    }
+  });
+});
+
 app.post('/api/reviews', (req, res) => {
   const newReview = {
     userName: req.body.userName,
+    profilePic: req.body.profilePic,
     created_at: Date.now(),
     userHomeLocation: req.body.userHomeLocation,
     images: req.body.images,
@@ -29,6 +40,7 @@ app.post('/api/reviews', (req, res) => {
     reviewBody: req.body.reviewBody,
     dateOfExperience: req.body.dateOfExperience,
     helpfulVotes: 0,
+    destination: req.body.destination,
   };
   Reviews.create(newReview, (err, data) => {
     if (err) {
