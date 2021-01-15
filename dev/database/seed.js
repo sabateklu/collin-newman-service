@@ -2,6 +2,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const Faker = require('faker');
 const Review = require('../../database/Reviews.js');
+const mongoose = require('mongoose');
 
 const generateData = () => {
   const dummyData = [];
@@ -23,10 +24,9 @@ const generateData = () => {
   Review.create(dummyData, (err) => {
     if (err) {
       console.log('Err', err);
-      return;
     } else {
       console.log('Seeding complete');
-      return;
+      mongoose.disconnect();
     }
   });
 };
