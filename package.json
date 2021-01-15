@@ -11,7 +11,8 @@
     "seed": "node ./dev/database/seed.js",
     "start": "nodemon ./server/index.js",
     "react:dev": "webpack --watch",
-    "webpack": "webpack --json > analysis.json"
+    "webpack": "webpack --json > analysis.json",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
