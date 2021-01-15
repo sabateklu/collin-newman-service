@@ -23,7 +23,7 @@ app.post('/api/reviews', (req, res) => {
     userName: req.body.userName,
     created_at: Date.now(),
     userHomeLocation: req.body.userHomeLocation,
-    images: [...JSON.parse(req.body.images)],
+    images: req.body.images,
     starRating: req.body.starRating,
     reviewTitle: req.body.reviewTitle,
     reviewBody: req.body.reviewBody,
@@ -40,7 +40,7 @@ app.post('/api/reviews', (req, res) => {
 });
 
 app.patch('/api/reviews/:id', (req, res) => {
-  Reviews.incHelpfulCounter(req.body.id, (err, data) => {
+  Reviews.incHelpfulCounter(req.params.id, (err, data) => {
     if (err) {
       res.send(err);
     } else {

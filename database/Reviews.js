@@ -37,7 +37,7 @@ const create = (review, cb) => {
 };
 
 const incHelpfulCounter = (reviewId, cb) => {
-  const id = { id: reviewId };
+  const id = { _id: reviewId };
   const update = { $inc: { helpfulVotes: 1 } };
 
   Reviews.findByIdAndUpdate(id, update, (err, data) => {
