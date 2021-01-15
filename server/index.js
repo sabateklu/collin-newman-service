@@ -23,7 +23,7 @@ app.post('/api/reviews', (req, res) => {
     userName: req.body.userName,
     created_at: Date.now(),
     userHomeLocation: req.body.userHomeLocation,
-    images: [...JSON.parse(req.body.images)],
+    images: req.body.images,
     starRating: req.body.starRating,
     reviewTitle: req.body.reviewTitle,
     reviewBody: req.body.reviewBody,
