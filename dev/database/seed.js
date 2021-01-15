@@ -25,6 +25,7 @@ const generateData = () => {
       console.log('Err', err);
     } else {
       console.log('Seeding complete');
+      return;
     }
   });
 };
