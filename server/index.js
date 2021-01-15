@@ -40,8 +40,9 @@ app.post('/api/reviews', (req, res) => {
 });
 
 app.patch('/api/reviews/:id', (req, res) => {
-  Reviews.incHelpfulCounter(req.body.id, (err, data) => {
+  Reviews.incHelpfulCounter(req.params.id, (err, data) => {
     if (err) {
+      console.log(err);
       res.send(err);
     } else {
       res.send(data);
