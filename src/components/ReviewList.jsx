@@ -5,7 +5,11 @@ import ReviewCard from './ReviewCard';
 const ReviewList = ({ reviews, helpfulClickHandler }) => (
   <div>
     {reviews.map((review) => (
-      <ReviewCard review={review} helpfulClickHandler={helpfulClickHandler} />
+      <ReviewCard
+        review={review}
+        helpfulClickHandler={helpfulClickHandler}
+        key={String(review._id)}
+      />
     ))}
   </div>
 );

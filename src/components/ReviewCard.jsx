@@ -72,6 +72,7 @@ const ReviewCard = ({ review, helpfulClickHandler }) => {
             className={classes.media}
             image={image}
             title="reviews pic"
+            key={image}
           />
         ))}
       </Carousel>
