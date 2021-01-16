@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const generateData = () => {
   const dummyData = [];
-  const destinations = [Faker.address.city(), Faker.address.city(), Faker.address.city(), Faker.address.city(), Faker.address.city()];
+  const destinations = ['Phitsanulok', 'Bangkok', 'Phuket', 'Trang', 'Ayutthaya'];
 
   for (let j = 0; j < destinations.length; j++) {
     for (let i = 0; i < 100; i += 1) {
