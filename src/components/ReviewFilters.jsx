@@ -6,26 +6,11 @@ const ReviewFilters = ({ ratings }) => (
     <div className="ratings">
       <h5>Traveler Rating</h5>
       <div className="rating-grid">
-        <p>
-          Excellent:
-          {ratings.excellent}
-        </p>
-        <p>
-          Very good:
-          {ratings.good}
-        </p>
-        <p>
-          Average:
-          {ratings.average}
-        </p>
-        <p>
-          Poor:
-          {ratings.poor}
-        </p>
-        <p>
-          Terrible:
-          {ratings.terrible}
-        </p>
+        <p>Excellent: {ratings.excellent}</p>
+        <p>Very good:{ratings.good}</p>
+        <p>Average:{ratings.average}</p>
+        <p>Poor:{ratings.poor}</p>
+        <p>Terrible:{ratings.terrible}</p>
       </div>
     </div>
   </div>

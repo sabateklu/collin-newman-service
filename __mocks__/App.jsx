@@ -5,6 +5,7 @@ import ReviewListControls from './ReviewListControls';
 import SearchBar from './SearchBar';
 import ReviewList from './ReviewList';
 import Pagination from './Pagination';
+import sampleData from './sampleData';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,17 +19,12 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getData();
+    console.log(this.state.reviews);
   }
 
   getData() {
     // Im hardcoding the location for now
-    axios.get(`/api/reviews/${'Bangkok'}`)
-      .then((res) => {
-        console.log(res);
-        this.setState({ reviews: res.data });
-        this.populateRatingsAndPages();
-      })
-      .catch((err) => console.log(err));
+    this.setState( reviews: sampleData );
   }
 
   populateRatingsAndPages() {
