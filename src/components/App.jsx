@@ -13,6 +13,7 @@ class App extends React.Component {
       reviews: [],
       travelerRatings: {},
       pages: 0,
+      currentPage: 0,
     };
   }
 
@@ -24,17 +25,29 @@ class App extends React.Component {
     // Im hardcoding the location for now
     axios.get(`/api/reviews/${'Bangkok'}`)
       .then((res) => {
-        console.log(res);
+        console.log('Setting staet');
         this.setState({ reviews: res.data });
+        console.log('got data');
         this.populateRatingsAndPages();
+        console.log('Pupulated state');
       })
       .catch((err) => console.log(err));
+  }
+
+  getReviews(pageNumber) {
+    const { reviews } = this.state;
+    const start = pageNumber * 10 - 10;
+    const end = pageNumber * 10;
+    if (pageNumber === 0) {
+      return reviews.slice(0, 9);
+    }
+    return reviews.slice(start, end);
   }
 
   populateRatingsAndPages() {
     const { reviews } = this.state;
     const { length } = reviews;
-    const pages = Math.ceil(length / 5);
+    const pages = Math.ceil(length / 10);
     const ratings = reviews.reduce((acc, currentValue) => (
       acc.concat([currentValue.starRating])
     ), []);
@@ -55,20 +68,34 @@ class App extends React.Component {
       }
       return acc;
     }, {});
+    const loaded = true;
+    this.setState({ travelerRatings, pages, loaded });
+  }
 
-    this.setState({ travelerRatings, pages });
+  renderView() {
+    const {
+      reviews, travelerRatings, pages, loaded, currentPage,
+    } = this.state;
+
+    const reviewsToRender = this.getReviews(currentPage);
+    console.log(reviewsToRender);
+    if (reviews.length > 0 && loaded) {
+      return (
+        <>
+          <ReviewListControls travelerRatings={travelerRatings} />
+          <SearchBar />
+          <ReviewList reviews={reviewsToRender} />
+          <Pagination pages={pages} />
+        </>
+      );
+    }
+    return <p>Loading...</p>;
   }
 
   render() {
-    const { reviews } = this.state;
-    const { travelerRatings } = this.state;
-    const { pages } = this.state;
     return (
-      <div>
-        <ReviewListControls travelerRatings={travelerRatings} />
-        <SearchBar />
-        <ReviewList reviews={reviews} />
-        <Pagination pages={pages} />
+      <div className="main">
+        {this.renderView()}
       </div>
     );
   }

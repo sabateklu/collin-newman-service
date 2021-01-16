@@ -2,44 +2,16 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import ReviewCard from './ReviewCard';
 
-const ReviewList = (props) => (
+const ReviewList = ({ reviews }) => (
   <div>
-    <ReviewCard />
-    <ReviewCard />
+    {reviews.map((review) => (
+      <ReviewCard review={review} />
+    ))}
   </div>
 );
 
 ReviewList.propTypes = {
-  reviews: Proptypes.shape({
-    created_at: Proptypes.instanceOf(Date),
-    dateOfExperience: Proptypes.instanceOf(Date),
-    destination: Proptypes.string,
-    helpfulVotes: Proptypes.number,
-    images: Proptypes.shape([Proptypes.string]),
-    profilePic: Proptypes.string,
-    reviewBody: Proptypes.string,
-    reviewTitle: Proptypes.string,
-    starRating: Proptypes.number,
-    userHomeLocation: Proptypes.string,
-    userName: Proptypes.string,
-  }),
-};
-
-ReviewList.defaultProps = {
-  reviews: Proptypes.shape({
-    created_at: Date.now(),
-    dateOfExperience: Date.now(),
-    destination: 'Thailand',
-    helpfulVotes: 0,
-    images: [''],
-    profilePic: '',
-    reviewBody: '',
-    reviewTitle: '',
-    starRating: 5,
-    userHomeLocation: '',
-    userName: '',
-  }),
-
+  reviews: Proptypes.shape([{}]).isRequired,
 };
 
 export default ReviewList;

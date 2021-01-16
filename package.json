@@ -36,6 +36,7 @@
     "express": "^4.17.1",
     "fontsource-roboto": "^4.0.0",
     "jest": "^25.0.0",
+    "moment": "^2.29.1",
     "mongoose": "^5.11.11",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
