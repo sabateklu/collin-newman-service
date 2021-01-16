@@ -15,6 +15,7 @@ class App extends React.Component {
       pages: 0,
       currentPage: 0,
     };
+    this.helpfulClickHandler = this.helpfulClickHandler.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +43,16 @@ class App extends React.Component {
       return reviews.slice(0, 9);
     }
     return reviews.slice(start, end);
+  }
+
+  helpfulClickHandler(e) {
+    const id = e.target.getAttribute('data-id');
+    axios.patch(`/api/reviews/${id}`)
+      .then((res) => {
+        console.log('Pattched', res);
+        this.getData();
+      })
+      .catch((err) => console.log(err));
   }
 
   populateRatingsAndPages() {
@@ -84,7 +95,7 @@ class App extends React.Component {
         <>
           <ReviewListControls travelerRatings={travelerRatings} />
           <SearchBar />
-          <ReviewList reviews={reviewsToRender} />
+          <ReviewList helpfulClickHandler={this.helpfulClickHandler} reviews={reviewsToRender} />
           <Pagination pages={pages} />
         </>
       );

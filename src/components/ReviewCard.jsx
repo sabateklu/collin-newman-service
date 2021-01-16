@@ -10,13 +10,18 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import Carousel from 'react-material-ui-carousel';
+import Rating from '@material-ui/lab/Rating';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: '60%',
   },
   media: {
     height: 0,
@@ -35,10 +40,50 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
+  iconFilled: {
+    color: '#34E0A1',
+  },
 }));
 
-const ReviewCard = ({ review }) => {
+const ReviewCard = ({ review, helpfulClickHandler }) => {
   const classes = useStyles();
+  const date = moment(review.created_at).format('MMM-YYYY');
+  const dateOfExperience = moment(review.dateOfExperience).format('MMM-YYYY');
+  const { _id } = review;
+
+  const imagesComponent = () => {
+    const { images } = review;
+    if (images.length === 0) {
+      return null;
+    }
+    if (images.length === 1) {
+      return (
+        <CardMedia
+          className={classes.media}
+          image={images[0]}
+          title="reviews pic"
+        />
+      );
+    }
+    return (
+      <Carousel>
+        {images.map((image) => (
+          <CardMedia
+            className={classes.media}
+            image={image}
+            title="reviews pic"
+          />
+        ))}
+      </Carousel>
+    );
+  };
+
+  const helpfulVotes = () => {
+    if (review.helpfulVotes === 1) {
+      return '1 Helpful vote.';
+    }
+    return `${review.helpfulVotes} Helpfules votes.`;
+  };
 
   return (
     <Card className={classes.root}>
@@ -57,34 +102,58 @@ const ReviewCard = ({ review }) => {
             </IconButton>
           )
         }
-        title={review.userName}
-        subheader={`${review.userHomeLocation} ${review.created_at}`}
+        title={(
+          <Typography variant="subtitle1" color="textPrimary" component="div">
+            {review.userName}
+            <Typography display="inline" variant="caption" color="textSecondary" component="p">
+              {` wrote a review ${date}`}
+            </Typography>
+          </Typography>
+        )}
+        subheader={(
+          <>
+            <LocationOnIcon style={{ fontSize: 14 }} />
+            <Typography display="inline" variant="caption" color="textSecondary" component="p">
+              {review.userHomeLocation}
+            </Typography>
+          </>
+        )}
       />
-      {review.images.map((image) => (
-        <CardMedia
-          className={classes.media}
-          image={image}
-          title="reviews pic"
-        />
-      ))}
+      {imagesComponent()}
       <CardContent>
+        <Rating
+          max={5}
+          value={review.starRating}
+          readOnly
+          className={classes.iconFilled}
+          icon={<FiberManualRecordIcon styles={{ color: '#34E0A1' }} />}
+        />
         <Typography variant="h6" color="textPrimary" component="h6">
           {review.reviewTitle}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="body2" color="textSecondary" component="p" paragraph>
           {review.reviewBody}
+        </Typography>
+        <Typography variant="body2" color="textPrimary" component="div" paragraph>
+          Date of experience:
+          <Typography display="inline" variant="body2" color="textSecondary" component="p">
+            {` ${dateOfExperience}`}
+          </Typography>
+        </Typography>
+        <Typography variant="caption" color="textSecondary" component="p" paragraph>
+          {helpfulVotes()}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="i found this helpful">
-          <ThumbUpAltOutlinedIcon />
-          <Typography variant="caption" color="textSecondary" component="p">
+        <IconButton aria-label="i found this helpful" onClick={(e) => { helpfulClickHandler(e); }} data-id={_id}>
+          <ThumbUpAltOutlinedIcon data-id={_id} />
+          <Typography variant="caption" color="textPrimary" component="p" data-id={_id}>
             Helpful
           </Typography>
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
-          <Typography variant="caption" color="textSecondary" component="p">
+          <Typography variant="caption" color="textPrimary" component="p">
             Share
           </Typography>
         </IconButton>
@@ -95,18 +164,30 @@ const ReviewCard = ({ review }) => {
 
 ReviewCard.propTypes = {
   review: Proptypes.shape({
-    created_at: Proptypes.instanceOf(Date),
-    dateOfExperience: Proptypes.instanceOf(Date),
+    created_at: Proptypes.string,
+    dateOfExperience: Proptypes.string,
     destination: Proptypes.string,
     helpfulVotes: Proptypes.number,
-    images: Proptypes.string,
+    images: Proptypes.arrayOf(Proptypes.string),
     profilePic: Proptypes.string,
     reviewBody: Proptypes.string,
     reviewTitle: Proptypes.string,
     starRating: Proptypes.number,
     userHomeLocation: Proptypes.string,
     userName: Proptypes.string,
+    _id: Proptypes.string,
   }).isRequired,
+  helpfulClickHandler: Proptypes.func.isRequired,
 };
 
 export default ReviewCard;
+
+/*
+
+<CardMedia
+  className={classes.media}
+  image={image}
+  title="reviews pic"
+/>
+
+*/
