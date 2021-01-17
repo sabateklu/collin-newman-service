@@ -62,9 +62,20 @@ const findByDestination = (destination, cb) => {
   });
 };
 
+const remove = (cb) => {
+  Reviews.remove({}, (err, data) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, data);
+    }
+  });
+};
+
 module.exports = {
   findAll,
   create,
   incHelpfulCounter,
   findByDestination,
+  remove,
 };
