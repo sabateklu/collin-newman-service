@@ -14,6 +14,7 @@ class App extends React.Component {
       travelerRatings: {},
       pages: 0,
       currentPage: 0,
+      loaded: false,
     };
     this.helpfulClickHandler = this.helpfulClickHandler.bind(this);
   }
@@ -26,11 +27,8 @@ class App extends React.Component {
     // Im hardcoding the location for now
     axios.get(`/api/reviews/${'Bangkok'}`)
       .then((res) => {
-        console.log('Setting staet');
         this.setState({ reviews: res.data });
-        console.log('got data');
         this.populateRatingsAndPages();
-        console.log('Pupulated state');
       })
       .catch((err) => console.log(err));
   }
@@ -48,8 +46,7 @@ class App extends React.Component {
   helpfulClickHandler(e) {
     const id = e.target.getAttribute('data-id');
     axios.patch(`/api/reviews/${id}`)
-      .then((res) => {
-        console.log('Pattched', res);
+      .then(() => {
         this.getData();
       })
       .catch((err) => console.log(err));
@@ -89,7 +86,6 @@ class App extends React.Component {
     } = this.state;
 
     const reviewsToRender = this.getReviews(currentPage);
-    console.log(reviewsToRender);
     if (reviews.length > 0 && loaded) {
       return (
         <>
