@@ -21,7 +21,7 @@ import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: '60%',
+    maxWidth: '100%',
   },
   media: {
     height: 0,
@@ -162,7 +162,12 @@ const ReviewCard = ({ review, helpfulClickHandler }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="i found this helpful" onClick={(e) => { helpfulClickHandler(e); }} data-id={_id}>
+        <IconButton
+          aria-label="i found this helpful"
+          onClick={(e) => { helpfulClickHandler(e); }}
+          data-id={_id}
+          data-testid="helpfulBtn"
+        >
           <ThumbUpAltOutlinedIcon data-id={_id} />
           <Typography variant="caption" color="textPrimary" component="p" data-id={_id}>
             Helpful

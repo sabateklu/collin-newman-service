@@ -1,5 +1,4 @@
 import React from 'react';
-import Enzyme, {mount} from 'enzyme';
 import ReviewCard from '../../src/components/ReviewCard';
 import { createMount, createShallow, createRender } from '@material-ui/core/test-utils';
 import toJSON from 'enzyme-to-json';
@@ -29,13 +28,13 @@ describe('ReviewCard component', () => {
   });
 
 
-  test('Renders the correct helpful votes count.', () => {
+  test('Renders the component', () => {
     const wrapper = shallow(<ReviewCard review={review} helpfulClickHandler={() => null}/>);
 
     expect(wrapper.exists()).toBe(true);
   });
 
-  test('Increments helpful votes count on button click', () => {
+  test('Renders the correct helpful review count', () => {
     const wrapper = mount(<ReviewCard review={review} helpfulClickHandler={() => null}/>);
 
     expect(wrapper.find('p[data-testid="votesCounter"]').text()).toBe('11 Helpful votes.');
@@ -50,5 +49,5 @@ describe('ReviewCard component', () => {
   test('Renders date of review in a user readable format', () => {
     const wrapper = mount(<ReviewCard review={review} helpfulClickHandler={() => null}/>);
     expect(wrapper.find('p[data-testid="dateOfReview"]').text()).toBe(' wrote a review Jan-2021');
-  })
+  });
 });
