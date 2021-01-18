@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import ReviewListControls from './ReviewListControls';
 import SearchBar from './SearchBar';
 import ReviewList from './ReviewList';
-import Pagination from './Pagination';
 
 class App extends React.Component {
   constructor(props) {
@@ -53,9 +52,9 @@ class App extends React.Component {
     const end = pageNumber * 10;
     const filteredReviews = reviews.filter((review) => reviewsFilter(review));
     if (pageNumber === 0) {
-      return filteredReviews.slice(0, 9);
+      return { reviewsToRender: filteredReviews.slice(0, 10), allReviews: filteredReviews };
     }
-    return filteredReviews.slice(start, end);
+    return { reviewsToRender: filteredReviews.slice(start, end), allReviews: filteredReviews };
   }
 
   helpfulClickHandler(e) {
@@ -100,7 +99,7 @@ class App extends React.Component {
       reviews, travelerRatings, pages, loaded, currentPage,
     } = this.state;
 
-    const reviewsToRender = this.getReviews(currentPage);
+    const filteredReviews = this.getReviews(currentPage);
     if (reviews.length > 0 && loaded) {
       return (
         <>
@@ -111,9 +110,9 @@ class App extends React.Component {
           />
           <ReviewList
             helpfulClickHandler={this.helpfulClickHandler}
-            reviews={reviewsToRender}
+            reviewsToRender={filteredReviews.reviewsToRender}
+            pages={filteredReviews.allReviews.length}
           />
-          <Pagination pages={pages} />
         </>
       );
     }
