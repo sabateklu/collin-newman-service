@@ -8,14 +8,4 @@ describe('ReviewListControls component', () => {
 
     expect(wrapper.exists()).toBe(true);
   });
-
-  test('Button click does not refresh page', () => {
-    const wrapper = shallow(<ReviewListControls />);
-
-    wrapper.find('button').simulate('click', {
-      preventDefault: () => {
-        prevented = true;
-      }
-    });
-  });
 });

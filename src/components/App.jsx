@@ -12,7 +12,6 @@ class App extends React.Component {
     this.state = {
       reviews: [],
       travelerRatings: {},
-      pages: 0,
       currentPage: 0,
       loaded: false,
       reviewsFilter: (val) => val,
@@ -68,8 +67,8 @@ class App extends React.Component {
 
   populateRatingsAndPages() {
     const { reviews } = this.state;
-    const { length } = reviews;
-    const pages = Math.ceil(length / 10);
+    // const { length } = reviews;
+    // const pages = Math.ceil(length / 10);
     const ratings = reviews.reduce((acc, currentValue) => (
       acc.concat([currentValue.starRating])
     ), []);
@@ -91,12 +90,12 @@ class App extends React.Component {
       return acc;
     }, {});
     const loaded = true;
-    this.setState({ travelerRatings, pages, loaded });
+    this.setState({ travelerRatings, loaded });
   }
 
   renderView() {
     const {
-      reviews, travelerRatings, pages, loaded, currentPage,
+      reviews, travelerRatings, loaded, currentPage,
     } = this.state;
 
     const filteredReviews = this.getReviews(currentPage);

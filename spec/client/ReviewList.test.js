@@ -18,13 +18,9 @@ const reviews = [
   }
 ];
 
-function func() {
-
-}
-
 describe('ReviewList component', () => {
   test('Renders', () => {
-    const wrapper = shallow(<ReviewList reviews={reviews} helpfulClickHandler={func}/>);
+    const wrapper = shallow(<ReviewList pages={3} reviewsToRender={reviews} helpfulClickHandler={() => null}/>);
 
     expect(wrapper.exists()).toBe(true);
   });
