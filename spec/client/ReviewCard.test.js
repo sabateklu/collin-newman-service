@@ -1,6 +1,9 @@
 import React from 'react';
-import Enzyme, {shallow, mount} from 'enzyme';
+import Enzyme, {mount} from 'enzyme';
 import ReviewCard from '../../src/components/ReviewCard';
+import { createMount, createShallow, createRender } from '@material-ui/core/test-utils';
+import toJSON from 'enzyme-to-json';
+
 
 const review = {
   created_at: "2021-01-16T01:04:01.548Z",
@@ -11,19 +14,41 @@ const review = {
   profilePic: "http://d20lp9tw1uk7y6.cloudfront.net/profilePics/profilePic_people_1.jpg",
   reviewBody: "Et facere aliquam sit eveniet. Ullam deserunt eveniet quos distinctio. Velit nostrum voluptatibus sapiente aut totam molestiae inventore dignissimos porro. Voluptatem nihil qui iste doloribus natus esse. Excepturi praesentium quo earum. Laudantium aliquid voluptas totam enim nostrum.",
   reviewTitle: "dolores vitae quis",
-  starRating: 3,
+  starRating: 1,
   userHomeLocation: "Niger",
   userName: "Herta Corwin",
 }
 
-function func() {
-
-}
-
 describe('ReviewCard component', () => {
-  test('Renders', () => {
-    const wrapper = shallow(<ReviewCard review={review} helpfulClickHandler={func}/>);
+  let mount;
+  let shallow;
+
+  beforeEach(() => {
+    mount = createMount();
+    shallow = createShallow();
+  });
+
+
+  test('Renders the correct helpful votes count.', () => {
+    const wrapper = shallow(<ReviewCard review={review} helpfulClickHandler={() => null}/>);
 
     expect(wrapper.exists()).toBe(true);
   });
+
+  test('Increments helpful votes count on button click', () => {
+    const wrapper = mount(<ReviewCard review={review} helpfulClickHandler={() => null}/>);
+
+    expect(wrapper.find('p[data-testid="votesCounter"]').text()).toBe('11 Helpful votes.');
+  });
+
+  test('Renders the correct amout of stars for a review rating', () => {
+    const wrapper = mount(<ReviewCard review={review} helpfulClickHandler={() => null}/>);
+    expect(wrapper.find('span.MuiRating-iconEmpty').length).toBe(4);
+    expect(wrapper.find('span.MuiRating-iconFilled').length).toBe(1);
+  });
+
+  test('Renders date of review in a user readable format', () => {
+    const wrapper = mount(<ReviewCard review={review} helpfulClickHandler={() => null}/>);
+    expect(wrapper.find('p[data-testid="dateOfReview"]').text()).toBe(' wrote a review Jan-2021');
+  })
 });

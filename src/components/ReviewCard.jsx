@@ -83,7 +83,7 @@ const ReviewCard = ({ review, helpfulClickHandler }) => {
     if (review.helpfulVotes === 1) {
       return '1 Helpful vote.';
     }
-    return `${review.helpfulVotes} Helpfules votes.`;
+    return `${review.helpfulVotes} Helpful votes.`;
   };
 
   return (
@@ -106,7 +106,13 @@ const ReviewCard = ({ review, helpfulClickHandler }) => {
         title={(
           <Typography variant="subtitle1" color="textPrimary" component="div">
             {review.userName}
-            <Typography display="inline" variant="caption" color="textSecondary" component="p">
+            <Typography
+              display="inline"
+              variant="caption"
+              color="textSecondary"
+              component="p"
+              data-testid="dateOfReview"
+            >
               {` wrote a review ${date}`}
             </Typography>
           </Typography>
@@ -127,7 +133,11 @@ const ReviewCard = ({ review, helpfulClickHandler }) => {
           value={review.starRating}
           readOnly
           className={classes.iconFilled}
-          icon={<FiberManualRecordIcon styles={{ color: '#34E0A1' }} />}
+          icon={(
+            <FiberManualRecordIcon
+              styles={{ color: '#34E0A1' }}
+            />
+          )}
         />
         <Typography variant="h6" color="textPrimary" component="h6">
           {review.reviewTitle}
@@ -141,7 +151,13 @@ const ReviewCard = ({ review, helpfulClickHandler }) => {
             {` ${dateOfExperience}`}
           </Typography>
         </Typography>
-        <Typography variant="caption" color="textSecondary" component="p" paragraph>
+        <Typography
+          data-testid="votesCounter"
+          variant="caption"
+          color="textSecondary"
+          component="p"
+          paragraph
+        >
           {helpfulVotes()}
         </Typography>
       </CardContent>
@@ -182,13 +198,3 @@ ReviewCard.propTypes = {
 };
 
 export default ReviewCard;
-
-/*
-
-<CardMedia
-  className={classes.media}
-  image={image}
-  title="reviews pic"
-/>
-
-*/
