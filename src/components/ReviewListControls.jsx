@@ -58,7 +58,7 @@ const ReviewListControls = (props) => {
           </Typography>
         )}
         subheader={(
-          <Typography display="inline" variant="caption" color="textSecondary" component="p">
+          <Typography data-testid="reviewCount" display="inline" variant="caption" color="textSecondary" component="p">
             {`${reviewsCount}`}
           </Typography>
         )}
