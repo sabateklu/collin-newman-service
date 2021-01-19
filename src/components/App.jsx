@@ -26,12 +26,11 @@ class App extends React.Component {
   }
 
   handleClickClearInput() {
-    document.getElementById('searchInput').value = '';
     this.setState({ reviewsFilter: (val) => val });
   }
 
-  handleChangeFilterReviews() {
-    const searchInput = document.getElementById('searchInput').value;
+  handleChangeFilterReviews(searchInput) {
+    console.log(searchInput);
     this.setState({ reviewsFilter: (review) => (review.reviewBody.includes(searchInput)) });
   }
 

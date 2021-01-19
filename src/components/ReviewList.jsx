@@ -26,7 +26,7 @@ const noReviewsCard = () => (
 const ReviewList = ({ reviewsToRender, helpfulClickHandler, pages }) => {
   let reviewList = noReviewsCard();
   let pagination = null;
-  console.log(reviewsToRender.length);
+
   if (reviewsToRender.length > 0) {
     reviewList = reviewsToRender.map((review) => {
       const { _id } = review;
