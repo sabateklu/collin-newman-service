@@ -14,6 +14,8 @@ const reviewSchema = new mongoose.Schema({
   dateOfExperience: Date,
   helpfulVotes: Number,
   destination: String,
+  language: String,
+  travelerType: String,
 });
 
 const Reviews = mongoose.model('Review', reviewSchema);

@@ -1,10 +1,34 @@
 import React from 'react';
 import Proptypes from 'prop-types';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import Typography from '@material-ui/core/Typography';
+import Pagination from './Pagination';
 import ReviewCard from './ReviewCard';
 
-const ReviewList = ({ reviews, helpfulClickHandler }) => (
-  <div>
-    {reviews.map((review) => {
+const noReviewsCard = () => (
+  <Card>
+    <CardHeader
+      title={(
+        <Typography variant="subtitle1" color="textPrimary" component="div">
+          No results found.
+        </Typography>
+      )}
+      subheader={(
+        <Typography display="inline" variant="caption" color="textSecondary" component="p">
+          Try removing a filter, changing your search, or clear all to read reviews.
+        </Typography>
+      )}
+    />
+  </Card>
+);
+
+const ReviewList = ({ reviewsToRender, helpfulClickHandler, pages }) => {
+  let reviewList = noReviewsCard();
+  let pagination = null;
+  console.log(reviewsToRender.length);
+  if (reviewsToRender.length > 0) {
+    reviewList = reviewsToRender.map((review) => {
       const { _id } = review;
       return (
         <ReviewCard
@@ -13,12 +37,22 @@ const ReviewList = ({ reviews, helpfulClickHandler }) => (
           key={String(_id)}
         />
       );
-    })}
-  </div>
-);
+    });
+    if (pages > 1) {
+      pagination = <Pagination />;
+    }
+  }
+
+  return (
+    <div>
+      {reviewList}
+      {pagination}
+    </div>
+  );
+};
 
 ReviewList.propTypes = {
-  reviews: Proptypes.arrayOf(Proptypes.shape({
+  reviewsToRender: Proptypes.arrayOf(Proptypes.shape({
     created_at: Proptypes.string,
     dateOfExperience: Proptypes.string,
     destination: Proptypes.string,
@@ -33,6 +67,7 @@ ReviewList.propTypes = {
     _id: Proptypes.string,
   })).isRequired,
   helpfulClickHandler: Proptypes.func.isRequired,
+  pages: Proptypes.number.isRequired,
 };
 
 export default ReviewList;

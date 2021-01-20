@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import React from 'react';
 import axios from 'axios';
+import Grid from '@material-ui/core/Grid';
 import ReviewListControls from './ReviewListControls';
 import SearchBar from './SearchBar';
 import ReviewList from './ReviewList';
-import Pagination from './Pagination';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,12 +15,25 @@ class App extends React.Component {
       pages: 0,
       currentPage: 0,
       loaded: false,
+      reviewsFilter: (val) => val,
     };
     this.helpfulClickHandler = this.helpfulClickHandler.bind(this);
+    this.handleClickClearInput = this.handleClickClearInput.bind(this);
+    this.handleChangeFilterReviews = this.handleChangeFilterReviews.bind(this);
   }
 
   componentDidMount() {
     this.getData();
+  }
+
+  handleClickClearInput() {
+    document.getElementById('searchInput').value = '';
+    this.setState({ reviewsFilter: (val) => val });
+  }
+
+  handleChangeFilterReviews() {
+    const searchInput = document.getElementById('searchInput').value;
+    this.setState({ reviewsFilter: (review) => (review.reviewBody.includes(searchInput)) });
   }
 
   getData() {
@@ -34,13 +47,14 @@ class App extends React.Component {
   }
 
   getReviews(pageNumber) {
-    const { reviews } = this.state;
+    const { reviews, reviewsFilter } = this.state;
     const start = pageNumber * 10 - 10;
     const end = pageNumber * 10;
+    const filteredReviews = reviews.filter((review) => reviewsFilter(review));
     if (pageNumber === 0) {
-      return reviews.slice(0, 9);
+      return { reviewsToRender: filteredReviews.slice(0, 10), allReviews: filteredReviews };
     }
-    return reviews.slice(start, end);
+    return { reviewsToRender: filteredReviews.slice(start, end), allReviews: filteredReviews };
   }
 
   helpfulClickHandler(e) {
@@ -85,14 +99,20 @@ class App extends React.Component {
       reviews, travelerRatings, pages, loaded, currentPage,
     } = this.state;
 
-    const reviewsToRender = this.getReviews(currentPage);
+    const filteredReviews = this.getReviews(currentPage);
     if (reviews.length > 0 && loaded) {
       return (
         <>
           <ReviewListControls travelerRatings={travelerRatings} />
-          <SearchBar />
-          <ReviewList helpfulClickHandler={this.helpfulClickHandler} reviews={reviewsToRender} />
-          <Pagination pages={pages} />
+          <SearchBar
+            handleChangeFilterReviews={this.handleChangeFilterReviews}
+            handleClickClearInput={this.handleClickClearInput}
+          />
+          <ReviewList
+            helpfulClickHandler={this.helpfulClickHandler}
+            reviewsToRender={filteredReviews.reviewsToRender}
+            pages={filteredReviews.allReviews.length}
+          />
         </>
       );
     }
@@ -101,9 +121,17 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="main">
-        {this.renderView()}
-      </div>
+      <Grid
+        container
+        spacing={0}
+        alignItems="center"
+        justify="center"
+        style={{ minHeight: '100vh' }}
+      >
+        <Grid item xs={6}>
+          {this.renderView()}
+        </Grid>
+      </Grid>
     );
   }
 }

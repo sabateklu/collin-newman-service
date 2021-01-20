@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, {shallow, mount} from 'enzyme';
+import { createMount, createShallow, createRender } from '@material-ui/core/test-utils';
 import App from '../../src/components/App';
 import ReviewListControls from '../../src/components/ReviewListControls';
 import SearchBar from '../../src/components/SearchBar';
@@ -23,33 +23,17 @@ const fakeReviews = [
 ];
 
 describe('App component', () => {
+  let mount;
+  let shallow;
+
+  beforeEach(() => {
+    mount = createMount();
+    shallow = createShallow();
+  });
+
   test('Renders', () => {
     const wrapper = shallow(<App />);
 
     expect(wrapper.exists()).toBe(true);
   });
-  // test('Renders all of its subcomponents',  () => {
-  //   const wrapper = shallow((
-  //     <App>
-  //       <ReviewListControls />
-  //       <SearchBar />
-  //       <ReviewList reviews={fakeReviews} helpfulClickHandler={function() {}}/>
-  //       <Pagination />
-  //     </App>
-  //   ));
-  //   wrapper.setState({
-  //     reviews: fakeReviews,
-  //     travelerRatings: {
-  //       excellent: 12,
-  //       good: 7,
-  //       average: 3,
-  //       poor: 1,
-  //       terrible: 0,
-  //     },
-  //     pages: 3,
-  //     currentPage: 0,
-  //     loaded: true,
-  //   });
-  //   expect(wrapper.contains(<ReviewListControls />)).to.equal(true);
-  // });
 });
