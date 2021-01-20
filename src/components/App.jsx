@@ -100,7 +100,7 @@ class App extends React.Component {
       // update state with review
       // make post request
         //unmount model
-    console.log('New review');
+    console.log('New review', this.newReview);
   }
 
   renderView() {
@@ -114,7 +114,7 @@ class App extends React.Component {
     if (reviews.length > 0 && loaded) {
       return (
         <>
-          <ReviewListControls writeReview={this.writeReview} travelerRatings={travelerRatings} reviewsCount={reviewsCount} />
+          <ReviewListControls writeReview={this.writeReview()} travelerRatings={travelerRatings} reviewsCount={reviewsCount} />
           <SearchBar
             handleChangeFilterReviews={this.handleChangeFilterReviews}
             handleClickClearInput={this.handleClickClearInput}

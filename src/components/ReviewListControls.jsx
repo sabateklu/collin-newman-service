@@ -45,13 +45,11 @@ const ReviewListControls = (props) => {
   return (
     <Card>
       <CardHeader
-        avatar={
-          (
-            <Avatar aria-label="paper and pencil" className={classes.avatar}>
-              <RateReviewIcon />
-            </Avatar>
-          )
-        }
+        avatar={(
+          <Avatar aria-label="paper and pencil" className={classes.avatar}>
+            <RateReviewIcon />
+          </Avatar>
+        )}
         title={(
           <Typography variant="subtitle1" color="textPrimary" component="div">
             Reviews

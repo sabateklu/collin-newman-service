@@ -40,7 +40,7 @@ const generateData = () => {
             created_at: Faker.date.past(),
             userHomeLocation: Faker.address.country(),
             images: randomImages,
-            starRating: Math.floor(Math.random() * (5)),
+            starRating: Math.floor(Math.random() * (6 - 1) + 1),
             reviewTitle: Faker.lorem.words(),
             reviewBody: fakeReviewBody,
             dateOfExperience: Faker.date.past(),

@@ -16,7 +16,7 @@ describe('ReviewFilters component', () => {
   const mount = createMount();
 
   beforeEach(() => {
-    wrapper = shallow(<ReviewFilters travelerRatings={travelerRatings} />);
+    wrapper = mount(<ReviewFilters travelerRatings={travelerRatings} />);
   });
 
   it('Renders', () => {
@@ -25,10 +25,10 @@ describe('ReviewFilters component', () => {
 
   it('Dynamically renders the correct number next to each review rating category', () => {
     expect(wrapper.find('p[data-testid="excellentCount"]').text()).toBe("232");
-    expect(wrapper.find('p[data-testid="goodCount"]').text()).toBe("232");
-    expect(wrapper.find('p[data-testid="averageCount"]').text()).toBe("232");
-    expect(wrapper.find('p[data-testid="poorCount"]').text()).toBe("232");
-    expect(wrapper.find('p[data-testid="terribleCount"]').text()).toBe("232");
+    expect(wrapper.find('p[data-testid="goodCount"]').text()).toBe("198");
+    expect(wrapper.find('p[data-testid="averageCount"]').text()).toBe("112");
+    expect(wrapper.find('p[data-testid="poorCount"]').text()).toBe("13");
+    expect(wrapper.find('p[data-testid="terribleCount"]').text()).toBe("2");
     const moreRatings = {
       excellent: 211,
       good: 134,
@@ -53,6 +53,6 @@ describe('ReviewFilters component', () => {
   });
 
   it('renders 5 linear progress bars', () => {
-    expect(wrapper.find('div[data-testid="linearProgress"]')).toHaveLength(5);
+    expect(wrapper.find('div[data-testid="progressBar"]')).toHaveLength(5);
   });
 });
