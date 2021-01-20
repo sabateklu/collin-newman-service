@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ReviewListControls = (props) => {
   const classes = useStyles();
-  const { reviewsCount, writeReview } = props;
+  const { reviewsCount, writeReview, travelerRatings } = props;
   return (
     <Card>
       <CardHeader
@@ -70,7 +70,7 @@ const ReviewListControls = (props) => {
       />
       <CardContent>
         <Divider />
-        <ReviewFilters />
+        <ReviewFilters travelerRatings={travelerRatings} />
         <ReviewKeywords />
       </CardContent>
     </Card>
