@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   progressBarTrack: {
     backgroundColor: 'grey',
     /* (height of inner div) / 2 + padding */
-    width: '15vw',
+    width: '6vw',
     padding: '0',
   },
   progressBarIndicator: {
@@ -57,19 +57,21 @@ const ReviewFilters = ({ travelerRatings }) => {
   const progressValues = getProgress();
 
   const RatingColumn = () => (
-    <Grid item xs={4}>
+    <Grid item xs={6}>
       <Grid className={classes.ratingRow}>
         <Typography className={classes.typographyHeader}>Traveler rating</Typography>
       </Grid>
-      <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Excellent</Typography>
-        <div className={classes.progressBarTrack} data-testid="progressBar">
-          <div className={classes.progressBarIndicator} />
-        </div>
+      <Grid item xs={2} className={classes.ratingRow}>
+        <Grid item xs={1}><input type="checkbox" /></Grid>
+        <Grid item xs={1}><Typography className={classes.typography}>Excellent</Typography></Grid>
+        <Grid item xs={1}>
+          <div className={classes.progressBarTrack} data-testid="progressBar">
+            <div className={classes.progressBarIndicator} />
+          </div>
+        </Grid>
         <Typography className={classes.typography} component="p" data-testid="excellentCount">{travelerRatings.excellent}</Typography>
       </Grid>
-      <Grid className={classes.ratingRow}>
+      <Grid item xs className={classes.ratingRow}>
         <input type="checkbox" />
         <Typography className={classes.typography}>Good</Typography>
         <div className={classes.progressBarTrack} data-testid="progressBar">
@@ -77,7 +79,7 @@ const ReviewFilters = ({ travelerRatings }) => {
         </div>
         <Typography className={classes.typography} component="p" data-testid="goodCount">{travelerRatings.good}</Typography>
       </Grid>
-      <Grid className={classes.ratingRow}>
+      <Grid item xs className={classes.ratingRow}>
         <input type="checkbox" />
         <Typography className={classes.typography}>Average</Typography>
         <div className={classes.progressBarTrack} data-testid="progressBar">
@@ -85,7 +87,7 @@ const ReviewFilters = ({ travelerRatings }) => {
         </div>
         <Typography className={classes.typography} component="p" data-testid="averageCount">{travelerRatings.average}</Typography>
       </Grid>
-      <Grid className={classes.ratingRow}>
+      <Grid item xs className={classes.ratingRow}>
         <input type="checkbox" />
         <Typography className={classes.typography}>Poor</Typography>
         <div className={classes.progressBarTrack} data-testid="progressBar">
@@ -93,7 +95,7 @@ const ReviewFilters = ({ travelerRatings }) => {
         </div>
         <Typography className={classes.typography} component="p" data-testid="poorCount">{travelerRatings.poor}</Typography>
       </Grid>
-      <Grid className={classes.ratingRow}>
+      <Grid item xs className={classes.ratingRow}>
         <input type="checkbox" />
         <Typography className={classes.typography}>Terrible</Typography>
         <div className={classes.progressBarTrack} data-testid="progressBar">
@@ -190,7 +192,7 @@ const ReviewFilters = ({ travelerRatings }) => {
 
   return (
     <Grid container spacing={3} className={classes.root}>
-      <Grid container item xs={12} spacing={3}>
+      <Grid container item xs={12} spacing={3} className={classes.main}>
         <RatingColumn />
         <TravelerTypeColumn />
         <TimeOfYearColumn />
