@@ -89,20 +89,16 @@ const ReviewCard = ({ review, helpfulClickHandler }) => {
   return (
     <Card className={classes.root}>
       <CardHeader
-        avatar={
-          (
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              <img src={review.profilePic} alt="profile pic" />
-            </Avatar>
-          )
-        }
-        action={
-          (
-            <IconButton aria-label="settings">
-              <MoreHorizIcon />
-            </IconButton>
-          )
-        }
+        avatar={(
+          <Avatar aria-label="recipe" className={classes.avatar}>
+            <img src={review.profilePic} alt="profile pic" />
+          </Avatar>
+          )}
+        action={(
+          <IconButton aria-label="settings">
+            <MoreHorizIcon />
+          </IconButton>
+          )}
         title={(
           <Typography variant="subtitle1" color="textPrimary" component="div">
             {review.userName}

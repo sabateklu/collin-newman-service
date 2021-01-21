@@ -15,10 +15,12 @@ class App extends React.Component {
       currentPage: 0,
       loaded: false,
       reviewsFilter: (val) => val,
+      newReview: {},
     };
     this.helpfulClickHandler = this.helpfulClickHandler.bind(this);
     this.handleClickClearInput = this.handleClickClearInput.bind(this);
     this.handleChangeFilterReviews = this.handleChangeFilterReviews.bind(this);
+    this.writeReview = this.writeReview.bind(this);
   }
 
   componentDidMount() {
@@ -26,12 +28,11 @@ class App extends React.Component {
   }
 
   handleClickClearInput() {
-    document.getElementById('searchInput').value = '';
     this.setState({ reviewsFilter: (val) => val });
   }
 
-  handleChangeFilterReviews() {
-    const searchInput = document.getElementById('searchInput').value;
+  handleChangeFilterReviews(searchInput) {
+    console.log(searchInput);
     this.setState({ reviewsFilter: (review) => (review.reviewBody.includes(searchInput)) });
   }
 
@@ -93,16 +94,27 @@ class App extends React.Component {
     this.setState({ travelerRatings, loaded });
   }
 
+  writeReview() {
+    // display new review model
+      // get review data from form
+      // update state with review
+      // make post request
+        //unmount model
+    console.log('New review', this.newReview);
+  }
+
   renderView() {
     const {
       reviews, travelerRatings, loaded, currentPage,
     } = this.state;
 
     const filteredReviews = this.getReviews(currentPage);
+    console.log(filteredReviews);
+    const reviewsCount = filteredReviews.allReviews.length;
     if (reviews.length > 0 && loaded) {
       return (
         <>
-          <ReviewListControls travelerRatings={travelerRatings} />
+          <ReviewListControls writeReview={this.writeReview()} travelerRatings={travelerRatings} reviewsCount={reviewsCount} />
           <SearchBar
             handleChangeFilterReviews={this.handleChangeFilterReviews}
             handleClickClearInput={this.handleClickClearInput}

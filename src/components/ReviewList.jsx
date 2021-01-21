@@ -3,6 +3,7 @@ import Proptypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import Pagination from './Pagination';
 import ReviewCard from './ReviewCard';
 
@@ -26,16 +27,19 @@ const noReviewsCard = () => (
 const ReviewList = ({ reviewsToRender, helpfulClickHandler, pages }) => {
   let reviewList = noReviewsCard();
   let pagination = null;
-  console.log(reviewsToRender.length);
+
   if (reviewsToRender.length > 0) {
     reviewList = reviewsToRender.map((review) => {
       const { _id } = review;
       return (
-        <ReviewCard
-          review={review}
-          helpfulClickHandler={helpfulClickHandler}
-          key={String(_id)}
-        />
+        <>
+          <ReviewCard
+            review={review}
+            helpfulClickHandler={helpfulClickHandler}
+            key={String(_id)}
+          />
+          <Divider />
+        </>
       );
     });
     if (pages > 1) {
