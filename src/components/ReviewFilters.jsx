@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const ReviewFilters = ({ travelerRatings }) => {
+const ReviewFilters = ({ travelerRatings, handleChangeFilterTravelerType }) => {
   const classes = useStyles();
   // const { excellent, good, average, poor, terrible } = travelerRatings;
   // const getProgress = () => {
@@ -62,15 +62,13 @@ const ReviewFilters = ({ travelerRatings }) => {
       <Grid className={classes.ratingRow}>
         <Typography className={classes.typographyHeader}>Traveler rating</Typography>
       </Grid>
-      <Grid item xs={2} className={classes.ratingRow}>
-        <Grid item xs={1}><input type="checkbox" /></Grid>
-        <Grid item xs={1}><Typography className={classes.typography}>Excellent</Typography></Grid>
-        <Grid item xs={1}>
-          <div className={classes.progressBarTrack} data-testid="progressBar">
-            <div className={classes.progressBarIndicator} />
-          </div>
-        </Grid>
-        <Typography className={classes.typography} component="p" data-testid="excellentCount">{travelerRatings.excellent}</Typography>
+      <Grid item xs className={classes.ratingRow}>
+        <input type="checkbox" />
+        <Typography className={classes.typography}>Excellent</Typography>
+        <div className={classes.progressBarTrack} data-testid="progressBar">
+          <div className={classes.progressBarIndicator} />
+        </div>
+        <Typography className={classes.typography} component="p" data-testid="goodCount">{travelerRatings.excellent}</Typography>
       </Grid>
       <Grid item xs className={classes.ratingRow}>
         <input type="checkbox" />
@@ -113,23 +111,23 @@ const ReviewFilters = ({ travelerRatings }) => {
         <Typography className={classes.typographyHeader}>Traveler type</Typography>
       </Grid>
       <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
+        <input name="travelerType" value="Families" onClick={(e) => { handleChangeFilterTravelerType(e); }} type="checkbox" />
         <Typography className={classes.typography}>Families</Typography>
       </Grid>
       <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
+        <input name="travelerType" value="Couples" onClick={(e) => { handleChangeFilterTravelerType(e); }} type="checkbox" />
         <Typography className={classes.typography}>Couples</Typography>
       </Grid>
       <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
+        <input name="travelerType" value="Solo" onClick={(e) => { handleChangeFilterTravelerType(e); }} type="checkbox" />
         <Typography className={classes.typography}>Solo</Typography>
       </Grid>
       <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
+        <input name="travelerType" value="Business" onClick={(e) => { handleChangeFilterTravelerType(e); }} type="checkbox" />
         <Typography className={classes.typography}>Business</Typography>
       </Grid>
       <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
+        <input name="travelerType" value="Friends" onClick={(e) => { handleChangeFilterTravelerType(e); }} type="checkbox" />
         <Typography className={classes.typography}>Friends</Typography>
       </Grid>
     </Grid>
@@ -165,27 +163,27 @@ const ReviewFilters = ({ travelerRatings }) => {
         <Typography className={classes.typographyHeader}>Language</Typography>
       </Grid>
       <Grid className={classes.ratingRow}>
-        <input name="languageChoice" type="radio" />
+        <input onClick={() => null} name="languageChoice" type="radio" />
         <Typography className={classes.typography}>All languages</Typography>
       </Grid>
       <Grid className={classes.ratingRow}>
-        <input name="languageChoice" type="radio" />
+        <input onClick={() => null} name="languageChoice" type="radio" />
         <Typography className={classes.typography}>English</Typography>
       </Grid>
       <Grid className={classes.ratingRow}>
-        <input name="languageChoice" type="radio" />
+        <input onClick={() => null} name="languageChoice" type="radio" />
         <Typography className={classes.typography}>Spanish</Typography>
       </Grid>
       <Grid className={classes.ratingRow}>
-        <input name="languageChoice" type="radio" />
+        <input onClick={() => null} name="languageChoice" type="radio" />
         <Typography className={classes.typography}>French</Typography>
       </Grid>
       <Grid className={classes.ratingRow}>
-        <input name="languageChoice" type="radio" />
+        <input onClick={() => null} name="languageChoice" type="radio" />
         <Typography className={classes.typography}>Italian</Typography>
       </Grid>
       <Grid className={classes.ratingRow}>
-        <input name="languageChoice" type="radio" />
+        <input onClick={() => null} name="languageChoice" type="radio" />
         <Typography className={classes.typography}>Italian</Typography>
       </Grid>
     </Grid>
@@ -211,6 +209,7 @@ ReviewFilters.propTypes = {
     poor: Proptypes.number,
     terrible: Proptypes.number,
   }),
+  handleChangeFilterTravelerType: Proptypes.func.isRequired,
 };
 
 ReviewFilters.defaultProps = {

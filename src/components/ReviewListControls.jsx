@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ReviewListControls = (props) => {
   const classes = useStyles();
-  const { reviewsCount, writeReview, travelerRatings } = props;
+  const { reviewsCount, writeReview, travelerRatings, handleChangeFilterTravelerType } = props;
   return (
     <Card>
       <CardHeader
@@ -68,7 +68,10 @@ const ReviewListControls = (props) => {
       />
       <CardContent>
         <Divider />
-        <ReviewFilters travelerRatings={travelerRatings} />
+        <ReviewFilters
+          travelerRatings={travelerRatings}
+          handleChangeFilterTravelerType={handleChangeFilterTravelerType}
+        />
         <ReviewKeywords />
       </CardContent>
     </Card>
@@ -85,6 +88,7 @@ ReviewListControls.propTypes = {
     terrible: Proptypes.number,
   }).isRequired,
   writeReview: Proptypes.func.isRequired,
+  handleChangeFilterTravelerType: Proptypes.func.isRequired,
 };
 
 export default ReviewListControls;
