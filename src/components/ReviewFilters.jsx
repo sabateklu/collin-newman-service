@@ -40,21 +40,22 @@ const useStyles = makeStyles((theme) => ({
 
 const ReviewFilters = ({ travelerRatings }) => {
   const classes = useStyles();
-  const { excellent, good, average, poor, terrible } = travelerRatings;
-  const getProgress = () => {
-    const max = Object.values(travelerRatings).reduce((acc, curVal) => (Math.max(acc, curVal)), 0);
-    const diff = (num) => Math.abs(max - num);
-    const round = (numDiff) => Math.floor((1 - (numDiff / max)) * max);
-    return {
-      excellent: round(diff(excellent)),
-      good: round(diff(good)),
-      average: round(diff(average)),
-      poor: round(diff(poor)),
-      terrible: round(diff(terrible)),
-    };
-  };
+  // const { excellent, good, average, poor, terrible } = travelerRatings;
+  // const getProgress = () => {
+  // eslint-disable-next-line max-len
+  //   const max = Object.values(travelerRatings).reduce((acc, curVal) => (Math.max(acc, curVal)), 0);
+  //   const diff = (num) => Math.abs(max - num);
+  //   const round = (numDiff) => Math.floor((1 - (numDiff / max)) * max);
+  //   return {
+  //     excellent: round(diff(excellent)),
+  //     good: round(diff(good)),
+  //     average: round(diff(average)),
+  //     poor: round(diff(poor)),
+  //     terrible: round(diff(terrible)),
+  //   };
+  // };
 
-  const progressValues = getProgress();
+  // const progressValues = getProgress();
 
   const RatingColumn = () => (
     <Grid item xs={6}>

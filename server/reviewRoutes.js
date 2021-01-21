@@ -1,14 +1,9 @@
 const express = require('express');
-const parser = require('body-parser');
 const Reviews = require('../database/Reviews.js');
 
-const app = express();
-const port = 3000;
+const router = express.Router();
 
-app.use(express.static('public'));
-app.use(parser());
-
-app.get('/api/reviews', (req, res) => {
+router.get('/', (req, res) => {
   Reviews.findAll((err, data) => {
     if (err) {
       res.send(err);
@@ -18,7 +13,7 @@ app.get('/api/reviews', (req, res) => {
   });
 });
 
-app.get('/api/reviews/:location', (req, res) => {
+router.get('/:location', (req, res) => {
   Reviews.findByDestination(req.params.location, (err, data) => {
     if (err) {
       res.send(err);
@@ -28,7 +23,7 @@ app.get('/api/reviews/:location', (req, res) => {
   });
 });
 
-app.post('/api/reviews', (req, res) => {
+router.post('/', (req, res) => {
   const newReview = {
     userName: req.body.userName,
     profilePic: req.body.profilePic,
@@ -51,7 +46,7 @@ app.post('/api/reviews', (req, res) => {
   });
 });
 
-app.patch('/api/reviews/:id', (req, res) => {
+router.patch('/:id', (req, res) => {
   Reviews.incHelpfulCounter(req.params.id, (err, data) => {
     if (err) {
       res.send(err);
@@ -61,7 +56,4 @@ app.patch('/api/reviews/:id', (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log('Listening on port', port);
-});
+module.exports = router;

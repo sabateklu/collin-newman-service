@@ -2,11 +2,13 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const Faker = require('faker');
 const Reviews = require('../../database/Reviews.js');
+const db = require('../../database/index');
 const mongoose = require('mongoose');
 const fetch = require('node-fetch');
 const reviewsByLanguage = require('./sampleData.js');
 
 const generateData = () => {
+  db('reviews');
   fetch('https://randomuser.me/api/?results=5000')
     .then((response) => response.json())
     .then((fakeUsers) => {

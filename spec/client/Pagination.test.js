@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from 'react';
 import Enzyme, {shallow, mount} from 'enzyme';
 import Pagination from '../../src/components/Pagination';

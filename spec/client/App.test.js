@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from 'react';
 import { createMount, createShallow, createRender } from '@material-ui/core/test-utils';
 import App from '../../src/components/App';

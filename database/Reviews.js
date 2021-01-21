@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 // eslint-disable-next-line no-unused-vars
-const db = require('./index.js');
 
 const reviewSchema = new mongoose.Schema({
   userName: String,
@@ -80,4 +79,5 @@ module.exports = {
   incHelpfulCounter,
   findByDestination,
   remove,
+  ReviewsModel: Reviews,
 };

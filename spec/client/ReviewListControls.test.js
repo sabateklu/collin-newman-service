@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from 'react';
 import { createMount, createShallow } from '@material-ui/core/test-utils';
 import ReviewListControls from '../../src/components/ReviewListControls';

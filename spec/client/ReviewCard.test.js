@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from 'react';
 import ReviewCard from '../../src/components/ReviewCard';
 import { createMount, createShallow, createRender } from '@material-ui/core/test-utils';
