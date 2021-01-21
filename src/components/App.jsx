@@ -32,7 +32,6 @@ class App extends React.Component {
   }
 
   handleChangeFilterReviews(searchInput) {
-    console.log(searchInput);
     this.setState({ reviewsFilter: (review) => (review.reviewBody.includes(searchInput)) });
   }
 
@@ -95,11 +94,6 @@ class App extends React.Component {
   }
 
   writeReview() {
-    // display new review model
-      // get review data from form
-      // update state with review
-      // make post request
-        //unmount model
     console.log('New review', this.newReview);
   }
 
@@ -109,12 +103,15 @@ class App extends React.Component {
     } = this.state;
 
     const filteredReviews = this.getReviews(currentPage);
-    console.log(filteredReviews);
     const reviewsCount = filteredReviews.allReviews.length;
     if (reviews.length > 0 && loaded) {
       return (
         <>
-          <ReviewListControls writeReview={this.writeReview()} travelerRatings={travelerRatings} reviewsCount={reviewsCount} />
+          <ReviewListControls
+            writeReview={this.writeReview()}
+            travelerRatings={travelerRatings}
+            reviewsCount={reviewsCount}
+          />
           <SearchBar
             handleChangeFilterReviews={this.handleChangeFilterReviews}
             handleClickClearInput={this.handleClickClearInput}

@@ -142,23 +142,3 @@ describe('Server routes', () => {
         .catch(err => console.log(err));
   });
 });
-
-// describe('Post routes', () => {
-//   const app = createServer('testPost')
-
-//   beforeAll((done) => {
-//     app.listen(5003, () => {
-//       console.log("Server has started!")
-//     })
-//   })
-
-//   afterAll((done) => {
-//     mongoose.connection.db.dropDatabase(() => {
-//       mongoose.connection.close(() => done())
-//     });
-//     console.log('STOPING SERVER');
-//     app.close();
-//   })
-
-//
-// });
