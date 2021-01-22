@@ -93,6 +93,7 @@ const ReviewListControls = (props) => {
     handleChangeFilterTravelerType,
     handleChangeFilterLanguage,
     handleChangeFilterTimeOfYear,
+    handleChangeRatingFilter,
   } = props;
 
   const [open, setOpen] = React.useState(false);
@@ -211,6 +212,7 @@ const ReviewListControls = (props) => {
           handleChangeFilterTravelerType={handleChangeFilterTravelerType}
           handleChangeFilterTimeOfYear={handleChangeFilterTimeOfYear}
           handleChangeFilterLanguage={handleChangeFilterLanguage}
+          handleChangeRatingFilter={handleChangeRatingFilter}
         />
       </CardContent>
       <Modal
@@ -239,6 +241,7 @@ ReviewListControls.propTypes = {
   handleChangeFilterTravelerType: Proptypes.func.isRequired,
   handleChangeFilterTimeOfYear: Proptypes.func.isRequired,
   handleChangeFilterLanguage: Proptypes.func.isRequired,
+  handleChangeRatingFilter: Proptypes.func.isRequired,
 };
 
 export default ReviewListControls;

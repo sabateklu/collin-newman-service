@@ -19,6 +19,7 @@ class App extends React.Component {
       reviewsTravelerTypeFilter: [],
       reviewsTimeOfYearFilter: [],
       reviewsLanguageFilter: null,
+      reviewsRatingFilter: null,
     };
     this.helpfulClickHandler = this.helpfulClickHandler.bind(this);
     this.handleClickClearInput = this.handleClickClearInput.bind(this);
@@ -27,6 +28,7 @@ class App extends React.Component {
     this.handleChangeFilterTravelerType = this.handleChangeFilterTravelerType.bind(this);
     this.handleChangeFilterLanguage = this.handleChangeFilterLanguage.bind(this);
     this.handleChangeFilterTimeOfYear = this.handleChangeFilterTimeOfYear.bind(this);
+    this.handleChangeRatingFilter = this.handleChangeRatingFilter.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +44,7 @@ class App extends React.Component {
   }
 
   handleChangeFilterTravelerType(types) {
+    console.log(types);
     if (types.length === 0) {
       this.setState({ reviewsTravelerTypeFilter: [] });
     } else {
@@ -58,11 +61,19 @@ class App extends React.Component {
   }
 
   handleChangeFilterLanguage(language) {
-    console.log(language);
     if (language !== 'all') {
       this.setState({ reviewsLanguageFilter: language });
     } else {
       this.setState({ reviewsLanguageFilter: null });
+    }
+  }
+
+  handleChangeRatingFilter(rating) {
+    console.log(rating);
+    if (rating.length > 0) {
+      this.setState({ reviewsRatingFilter: rating });
+    } else {
+      this.setState({ reviewsRatingFilter: [] });
     }
   }
 
@@ -93,13 +104,10 @@ class App extends React.Component {
       reviewsLanguageFilter,
       reviewsTimeOfYearFilter,
       reviewsTravelerTypeFilter,
+      reviewsRatingFilter,
     } = this.state;
-    console.log(reviewsLanguageFilter);
-    console.log(reviewsBodyFilter);
     const applyAllFilters = () => {
       const filteredReviews = reviews.filter((review) => {
-        console.log(review.reviewBody.includes(reviewsBodyFilter));
-        console.log(review.language);
         if (review.reviewBody.includes(reviewsBodyFilter)) {
           return review;
         }
@@ -113,7 +121,29 @@ class App extends React.Component {
         if (reviewsLanguageFilter === null) {
           return review;
         }
+      }).filter((review) => {
+        let pass = false;
+        for (let i = 0; i < reviewsTravelerTypeFilter.length; i += 1) {
+          if (review.travelerType.includes(reviewsTravelerTypeFilter[i])) {
+            pass = true;
+            break;
+          }
+        }
+        if (pass) {
+          return review;
+        }
+        if (reviewsTravelerTypeFilter.length === 0) {
+          return review;
+        }
       });
+      // .filter((review) => {
+      //   if (reviewsRatingFilter.includes(review.starRating)) {
+      //     return review;
+      //   }
+      //   if (reviewsRatingFilter.length === 0) {
+      //     return review;
+      //   }
+      // })
       console.log(filteredReviews);
       return filteredReviews;
     };
@@ -195,6 +225,7 @@ class App extends React.Component {
             handleChangeFilterTravelerType={this.handleChangeFilterTravelerType}
             handleChangeFilterTimeOfYear={this.handleChangeFilterTimeOfYear}
             handleChangeFilterLanguage={this.handleChangeFilterLanguage}
+            handleChangeRatingFilter={this.handleChangeRatingFilter}
           />
           <Divider />
           <SearchBar

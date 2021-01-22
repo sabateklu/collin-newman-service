@@ -53,6 +53,7 @@ class ReviewFilters extends React.Component {
     this.state = {
       travelerRatings: props.travelerRatings,
       handleChangeFilterTravelerType: props.handleChangeFilterTravelerType,
+      handleChangeRatingFilter: props.handleChangeRatingFilter,
       ratings: {
         excellent: false,
         good: false,
@@ -85,7 +86,7 @@ class ReviewFilters extends React.Component {
     this.classes = props.classes;
 
     this.handleRatings = function handleRatings(e) {
-      const { ratings } = this.state;
+      const { ratings, handleChangeRatingFilter } = this.state;
       const rating = e.target.getAttribute('data-key');
       const otherRatings = Object.keys(ratings).filter((item) => item !== rating);
       const filteredRatings = {};
@@ -99,6 +100,7 @@ class ReviewFilters extends React.Component {
         },
       });
       console.log(this.state);
+      // handleChangeRatingFilter();
     };
 
     this.handleType = function handleType(e) {
@@ -110,18 +112,24 @@ class ReviewFilters extends React.Component {
       otherTypes.forEach((key) => {
         filteredtypes[key] = types[key];
       });
+
+      const travelerTypes = [];
+      otherTypes.forEach((updatedType) => {
+        if (this.state.types[updatedType]) {
+          travelerTypes.push(updatedType);
+        }
+      });
+      if (!types[type]) {
+        travelerTypes.push(type);
+      }
+
       this.setState({
         types: {
           ...filteredtypes,
           [type]: !types[type],
         },
       });
-      const travelerTypes = [];
-      types.forEach((updatedType) => {
-        if (this.state.types[updatedType]) {
-          travelerTypes.push(updatedType);
-        }
-      });
+
       handleChangeFilterTravelerType(travelerTypes);
     };
 
@@ -323,6 +331,7 @@ ReviewFilters.propTypes = {
   handleChangeFilterTravelerType: Proptypes.func.isRequired,
   handleChangeFilterTimeOfYear: Proptypes.func.isRequired,
   handleChangeFilterLanguage: Proptypes.func.isRequired,
+  handleChangeRatingFilter: Proptypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   classes: Proptypes.object.isRequired,
 };
