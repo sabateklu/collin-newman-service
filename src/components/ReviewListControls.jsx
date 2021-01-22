@@ -45,10 +45,11 @@ const useStyles = makeStyles((theme) => ({
   writeReview: {
     marginTop: '2vh',
     marginRight: '2vw',
+    width: '100%',
   },
   paper: {
     position: 'absolute',
-    width: '50%',
+    width: '30%',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #34E0A1',
     boxShadow: theme.shadows[5],
@@ -56,16 +57,31 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    top: '10%',
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    width: '100%',
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
   modalContainer: {
     width: '55%',
+  },
+  modalItem: {
+    width: '100%',
+    margin: theme.spacing(1),
+  },
+  modalItemDropbox: {
+    width: '100%',
+    margin: theme.spacing(1),
+  },
+  modalMain: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'scroll',
   },
 }));
 
@@ -91,22 +107,27 @@ const ReviewListControls = (props) => {
         <Typography>Rate your experience</Typography>
         <Rating
           max={5}
+          id="ratingInput"
           className={classes.iconFilled}
           name="rating"
           icon={(
             <FiberManualRecordIcon />
           )}
         />
-        <Typography>Leave a review</Typography>
-        <TextField id="outlined-basic" label="Outlined" variant="outlined" multiline />
-        <Typography>Give your review a title</Typography>
-        <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-        <Typography>When did you go?</Typography>
-        <FormControl variant="outlined" className={classes.formControl}>
+        <Typography className={classes.modalItem}>Whats your name?</Typography>
+        <TextField className={classes.modalItem} id="nameInput" label="Name" variant="outlined" multiline />
+        <Typography className={classes.modalItem}>Where are you from?</Typography>
+        <TextField className={classes.modalItem} id="homeInput" label="Where from" variant="outlined" multiline />
+        <Typography className={classes.modalItem}>Leave a review</Typography>
+        <TextField className={classes.modalItem} id="bodyInput" label="How was it" variant="outlined" multiline />
+        <Typography className={classes.modalItem}>Give your review a title</Typography>
+        <TextField className={classes.modalItem} id="titleInput" label="Title" variant="outlined" />
+        <Typography className={classes.modalItem}>When did you go?</Typography>
+        <FormControl className={classes.formControl} variant="outlined">
           <InputLabel id="demo-simple-select-outlined-label">When</InputLabel>
           <Select
             labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
+            id="whenInput"
             onChange={() => null}
             label="Time of year"
             defaultValue=""
@@ -117,15 +138,16 @@ const ReviewListControls = (props) => {
             <MenuItem value="Dec-Feb">Dec-Feb</MenuItem>
           </Select>
         </FormControl>
-        <Typography>When did you go?</Typography>
-        <FormControl variant="outlined" className={classes.formControl}>
+        <Typography className={classes.modalItem}>Who did you go with?</Typography>
+        <FormControl className={classes.formControl} variant="outlined">
           <InputLabel id="demo-simple-select-outlined-label">Who</InputLabel>
           <Select
             labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
+            id="whoInput"
             onChange={() => null}
             label="Time of year"
-            defaultValue=""
+            defaultValue={[]}
+            multiple
           >
             <MenuItem value="Families">Families</MenuItem>
             <MenuItem value="Couples">Couples</MenuItem>
@@ -135,11 +157,21 @@ const ReviewListControls = (props) => {
           </Select>
         </FormControl>
         <DropzoneArea
+          className={classes.modalItemDropbox}
           acceptedFiles={['image/*']}
-          dropzoneText="Drag and drop an image here or click"
+          id="fileInput"
+          dropzoneText="Add some photos from your trip!"
           onChange={(files) => console.log('Files:', files)}
         />
-        <Button className={classes.writeReview} variant="contained">Submit</Button>
+        <Button
+          className={classes.writeReview}
+          onClick={() => {
+            writeReview();
+            handleClose();
+          }}
+          variant="contained"
+        >Submit
+        </Button>
       </CardContent>
     </Card>
   );
@@ -181,7 +213,7 @@ const ReviewListControls = (props) => {
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        className={classes.modalMain}
       >
         {modalBody()}
       </Modal>

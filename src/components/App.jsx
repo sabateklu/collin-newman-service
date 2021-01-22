@@ -164,10 +164,21 @@ class App extends React.Component {
     this.setState({ travelerRatings, loaded });
   }
 
-  writeReview(review) {
-    console.log('New review', this.newReview);
+  writeReview() {
+    const review = {};
+    review.userName = document.getElementById('nameInput').value;
+    review.reviewTitle = document.getElementById('titleInput').value;
+    review.reviewBody = document.getElementById('bodyInput').value;
+    review.userHomeLocation = document.getElementById('homeInput').value;
+    review.starRating = document.getElementById('ratingInput').value;
+    // review.dateOfExperience = document.getElementById('whenInput');
+    review.dateOfExperience = Date.now();
+    review.destination = 'Bangkok';
+    review.images = document.getElementById('fileInput');
+
     axios.post('/api/reviews', review)
-      .then(() => {
+      .then((res) => {
+        console.log(res);
         this.getData();
       })
       .catch((err) => console.log(err));
