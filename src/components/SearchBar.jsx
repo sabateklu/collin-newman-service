@@ -5,7 +5,7 @@ import Input from '@material-ui/core/Input';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
 import Fade from '@material-ui/core/Fade';
 
 class SearchBar extends React.Component {
@@ -40,39 +40,39 @@ class SearchBar extends React.Component {
   render() {
     const { checked } = this.state;
     return (
-      <form noValidate autoComplete="off">
-        <div>
-          <Grid container spacing={1} alignItems="flex-end">
-            <Grid item>
-              <IconButton edge={false} size="small">
-                <SearchIcon />
-              </IconButton>
-            </Grid>
-            <Grid item>
-              <Input
-                onChange={(e) => {
-                  this.handleChangeReviews(e);
-                  this.handleChangeCheckedStatus();
-                }}
-                id="searchInput"
-                label="With a grid"
-                endAdornment={(
-                  <InputAdornment
-                    position="end"
-                    onClick={() => this.clearInput()}
-                  >
-                    <Fade in={checked}>
-                      <IconButton edge={false} size="small" data-testid="clearSearchBtn">
-                        <HighlightOffIcon />
-                      </IconButton>
-                    </Fade>
-                  </InputAdornment>
-                )}
-              />
-            </Grid>
-          </Grid>
-        </div>
-      </form>
+      <Card>
+        <form noValidate autoComplete="off">
+          <div style={{ width: '100%' }}>
+            <Input
+              style={{ width: '100%', height: '60px' }}
+              onChange={(e) => {
+                this.handleChangeReviews(e);
+                this.handleChangeCheckedStatus();
+              }}
+              id="searchInput"
+              label="With a grid"
+              startAdornment={(
+                <IconButton edge={false} size="small">
+                  <SearchIcon />
+                </IconButton>
+              )}
+              endAdornment={(
+                <InputAdornment
+                  position="end"
+                  onClick={() => this.clearInput()}
+                >
+                  <Fade in={checked}>
+                    <IconButton edge={false} size="small" data-testid="clearSearchBtn">
+                      <HighlightOffIcon />
+                    </IconButton>
+                  </Fade>
+                </InputAdornment>
+              )}
+            />
+          </div>
+        </form>
+
+      </Card>
     );
   }
 }

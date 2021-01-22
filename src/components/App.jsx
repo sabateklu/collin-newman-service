@@ -2,6 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 import ReviewListControls from './ReviewListControls';
 import SearchBar from './SearchBar';
 import ReviewList from './ReviewList';
@@ -14,7 +15,7 @@ class App extends React.Component {
       travelerRatings: {},
       currentPage: 0,
       loaded: false,
-      reviewsBodyFilter: [],
+      reviewsBodyFilter: '',
       reviewsTravelerTypeFilter: [],
       reviewsTimeOfYearFilter: [],
       reviewsLanguageFilter: null,
@@ -35,8 +36,7 @@ class App extends React.Component {
   }
 
   handleChangeFilterBody(searchInput) {
-    const { reviewsBodyFilter } = this.state;
-    this.setState({ reviewsBodyFilter: [...reviewsBodyFilter, searchInput] });
+    this.setState({ reviewsBodyFilter: searchInput });
   }
 
   handleChangeFilterTravelerType() {
@@ -93,7 +93,7 @@ class App extends React.Component {
         let reviewProp;
         let reviewFilter;
         if (i === 0) {
-          reviewFilter = reviewsBodyFilter;
+          reviewFilter = [reviewsBodyFilter];
           reviewProp = 'reviewBody';
         }
         if (i === 1) {
@@ -200,6 +200,7 @@ class App extends React.Component {
             reviewsCount={reviewsCount}
             handleChangeFilterTravelerType={this.handleChangeFilterTravelerType}
           />
+          <Divider />
           <SearchBar
             handleChangeFilterReviews={this.handleChangeFilterBody}
             handleClickClearInput={this.handleClickClearInput}
