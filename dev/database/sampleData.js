@@ -1,4 +1,4 @@
-let English = `Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
+let english = `Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
 
 Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.
 
@@ -196,7 +196,7 @@ When she reached the first hills of the Italic Mountains, she had a last view ba
 
 Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her`;
 
-let Spanish = `Muy lejos, detrás de la palabra montañas, lejos de los países Vokalia y Consonantia, viven los textos ciegos.
+let spanish = `Muy lejos, detrás de la palabra montañas, lejos de los países Vokalia y Consonantia, viven los textos ciegos.
 
 Separados, viven en Bookmarksgrove justo en la costa de Semantics, un gran océano de idiomas.
 
@@ -236,7 +236,7 @@ El Big Oxmox le aconsejó que no lo hiciera, porque había miles de Comas malas,
 
 Ella empacó sus siete versalia, puso su inicial en el`;
 
-let Italian = `Lontano, dietro la parola montagne, lontano dai paesi Vokalia e Consonantia, vivono i testi ciechi.
+let italian = `Lontano, dietro la parola montagne, lontano dai paesi Vokalia e Consonantia, vivono i testi ciechi.
 
 Separati vivono a Bookmarksgrove, proprio sulla costa della Semantica, un grande oceano linguistico.
 
@@ -276,7 +276,7 @@ Il Big Oxmox le consigliò di non farlo, perché c'erano migliaia di virgole cat
 
 Ha impacchettato le sue sette versalia, ha messo la sua iniziale nella`;
 
-let French = `Loin loin, derrière le mot montagnes, loin des pays Vokalia et Consonantia, vivent les textes aveugles.
+let french = `Loin loin, derrière le mot montagnes, loin des pays Vokalia et Consonantia, vivent les textes aveugles.
 
 Séparés, ils vivent à Bookmarksgrove sur la côte de la sémantique, un grand océan de langues.
 
@@ -316,7 +316,7 @@ Le Big Oxmox lui a conseillé de ne pas le faire, car il y avait des milliers de
 
 Elle a emballé ses sept versalia, mis son initiale dans le`;
 
-let Russian = `Далеко-далеко, за словесными горами, вдали от стран Вокалия и Консонантия живут слепые тексты.
+let russian = `Далеко-далеко, за словесными горами, вдали от стран Вокалия и Консонантия живут слепые тексты.
 
 По отдельности они живут в Bookmarksgrove прямо на берегу Семантики, большого языкового океана.
 
@@ -357,17 +357,17 @@ let Russian = `Далеко-далеко, за словесными горами
 Она упаковала семь версалий, вложила инициалы в`;
 
 
-English = English.split('\n').join(' ').split('. ');
-Spanish = Spanish.split('\n').join(' ').split('. ');
-French = French.split('\n').join(' ').split('. ');
-Italian = Italian.split('\n').join(' ').split('. ');
-Russian = Russian.split('\n').join(' ').split('. ');
+english = english.split('\n').join(' ').split('. ');
+spanish = spanish.split('\n').join(' ').split('. ');
+french = french.split('\n').join(' ').split('. ');
+italian = italian.split('\n').join(' ').split('. ');
+russian = russian.split('\n').join(' ').split('. ');
 
 
 module.exports = {
-  English,
-  Spanish,
-  French,
-  Italian,
-  Russian,
+  english,
+  spanish,
+  french,
+  italian,
+  russian,
 }

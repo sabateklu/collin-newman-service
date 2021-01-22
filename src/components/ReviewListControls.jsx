@@ -19,7 +19,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { DropzoneArea } from 'material-ui-dropzone';
 import ReviewFilters from './ReviewFilters';
-import ReviewKeywords from './ReviewKeywords';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,7 +87,12 @@ const useStyles = makeStyles((theme) => ({
 const ReviewListControls = (props) => {
   const classes = useStyles();
   const {
-    reviewsCount, writeReview, travelerRatings, handleChangeFilterTravelerType,
+    reviewsCount,
+    writeReview,
+    travelerRatings,
+    handleChangeFilterTravelerType,
+    handleChangeFilterLanguage,
+    handleChangeFilterTimeOfYear,
   } = props;
 
   const [open, setOpen] = React.useState(false);
@@ -205,8 +209,9 @@ const ReviewListControls = (props) => {
         <ReviewFilters
           travelerRatings={travelerRatings}
           handleChangeFilterTravelerType={handleChangeFilterTravelerType}
+          handleChangeFilterTimeOfYear={handleChangeFilterTimeOfYear}
+          handleChangeFilterLanguage={handleChangeFilterLanguage}
         />
-        <ReviewKeywords />
       </CardContent>
       <Modal
         open={open}
@@ -232,6 +237,8 @@ ReviewListControls.propTypes = {
   }).isRequired,
   writeReview: Proptypes.func.isRequired,
   handleChangeFilterTravelerType: Proptypes.func.isRequired,
+  handleChangeFilterTimeOfYear: Proptypes.func.isRequired,
+  handleChangeFilterLanguage: Proptypes.func.isRequired,
 };
 
 export default ReviewListControls;

@@ -21,8 +21,8 @@ const generateData = () => {
       });
       const dummyData = [];
       const destinations = ['Phitsanulok', 'Bangkok', 'Phuket', 'Trang', 'Ayutthaya'];
-      const languages = ['English', 'Italian', 'Spanish', 'French', 'Russian'];
-      const travelerTypes  = ['Families', 'Couple', 'Solo', 'Business', 'Friends'];
+      const languages = ['english', 'italian', 'spanish', 'french', 'russian'];
+      const travelerTypes  = ['families', 'couple', 'solo', 'business', 'friends'];
       console.log(reviewsByLanguage);
       for (let j = 0; j < destinations.length; j++) {
         for (let i = 0; i < 100; i += 1) {
