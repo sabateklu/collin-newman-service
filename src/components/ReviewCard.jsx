@@ -130,9 +130,7 @@ const ReviewCard = ({ review, helpfulClickHandler }) => {
           readOnly
           className={classes.iconFilled}
           icon={(
-            <FiberManualRecordIcon
-              styles={{ color: '#34E0A1' }}
-            />
+            <FiberManualRecordIcon />
           )}
         />
         <Typography variant="h6" color="textPrimary" component="h6">

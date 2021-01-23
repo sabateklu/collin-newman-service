@@ -2,9 +2,9 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -35,173 +35,269 @@ const useStyles = makeStyles((theme) => ({
     width: '40%',
     height: '0.8rem',
   },
+  ratingColumn: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  main: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'space-around',
+  },
+});
 
-}));
+class ReviewFilters extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      travelerRatings: props.travelerRatings,
+      handleChangeFilterTravelerType: props.handleChangeFilterTravelerType,
+      ratings: {
+        excellent: false,
+        good: false,
+        average: false,
+        poor: false,
+        terrible: false,
+      },
+      types: {
+        families: false,
+        couples: false,
+        solo: false,
+        business: false,
+        friends: false,
+      },
+      timeOfYear: {
+        marMay: false,
+        junAug: false,
+        sepNov: false,
+        decFeb: false,
+      },
+      language: {
+        all: true,
+        english: false,
+        spanish: false,
+        french: false,
+        italian: false,
+        russian: false,
+      },
+    };
+    this.classes = props.classes;
+  }
 
-const ReviewFilters = ({ travelerRatings }) => {
-  const classes = useStyles();
-  // const { excellent, good, average, poor, terrible } = travelerRatings;
-  // const getProgress = () => {
-  // eslint-disable-next-line max-len
-  //   const max = Object.values(travelerRatings).reduce((acc, curVal) => (Math.max(acc, curVal)), 0);
-  //   const diff = (num) => Math.abs(max - num);
-  //   const round = (numDiff) => Math.floor((1 - (numDiff / max)) * max);
-  //   return {
-  //     excellent: round(diff(excellent)),
-  //     good: round(diff(good)),
-  //     average: round(diff(average)),
-  //     poor: round(diff(poor)),
-  //     terrible: round(diff(terrible)),
-  //   };
-  // };
+  handleRatings(e) {
+    const { ratings } = this.state;
+    const rating = e.target.getAttribute('data-key');
+    const otherRatings = Object.keys(ratings).filter((item) => item !== rating);
+    const filteredRatings = {};
+    otherRatings.forEach((key) => {
+      filteredRatings[key] = ratings[key];
+    });
+    this.setState({
+      ratings: {
+        ...filteredRatings,
+        [rating]: !ratings[rating],
+      },
+    });
+    console.log(this.state);
+  }
 
-  // const progressValues = getProgress();
+  handleType(e) {
+    const { types } = this.state;
+    const type = e.target.getAttribute('data-key');
+    const otherTypes = Object.keys(types).filter((item) => item !== type);
+    const filteredtypes = {};
+    otherTypes.forEach((key) => {
+      filteredtypes[key] = types[key];
+    });
+    this.setState({
+      types: {
+        ...filteredtypes,
+        [type]: !types[type],
+      },
+    });
+  }
 
-  const RatingColumn = () => (
-    <Grid item xs={6}>
-      <Grid className={classes.ratingRow}>
-        <Typography className={classes.typographyHeader}>Traveler rating</Typography>
-      </Grid>
-      <Grid item xs={2} className={classes.ratingRow}>
-        <Grid item xs={1}><input type="checkbox" /></Grid>
-        <Grid item xs={1}><Typography className={classes.typography}>Excellent</Typography></Grid>
-        <Grid item xs={1}>
-          <div className={classes.progressBarTrack} data-testid="progressBar">
-            <div className={classes.progressBarIndicator} />
-          </div>
+  handleTimeOfYear(e) {
+    const { timeOfYear } = this.state;
+    const time = e.target.getAttribute('data-key');
+    const otherTimes = Object.keys(timeOfYear).filter((item) => item !== time);
+    const filteredTimes = {};
+    otherTimes.forEach((key) => {
+      filteredTimes[key] = timeOfYear[key];
+    });
+    this.setState({
+      timeOfYear: {
+        ...filteredTimes,
+        [time]: !timeOfYear[time],
+      },
+    });
+  }
+
+  handleLanguage(e) {
+    const key = e.target.getAttribute('data-key');
+    const val = e.target.checked;
+    this.setState({
+      language: {
+        all: false,
+        english: false,
+        spanish: false,
+        french: false,
+        italian: false,
+        russian: false,
+        [key]: val,
+      },
+    });
+  }
+
+  RatingColumn() {
+    const { travelerRatings, ratings } = this.state;
+    return (
+      <Grid item xs={3}>
+        <Grid className={this.classes.ratingRow}>
+          <Typography className={this.classes.typographyHeader}>Traveler rating</Typography>
         </Grid>
-        <Typography className={classes.typography} component="p" data-testid="excellentCount">{travelerRatings.excellent}</Typography>
-      </Grid>
-      <Grid item xs className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Good</Typography>
-        <div className={classes.progressBarTrack} data-testid="progressBar">
-          <div className={classes.progressBarIndicator} />
+        <div className={this.classes.ratingColumn}>
+          <div>
+            <Grid item xs className={this.classes.ratingRow}>
+              <input data-key="excellent" type="checkbox" onChange={(e) => { this.handleRatings(e); }} checked={ratings.excellent} />
+              <Typography className={this.classes.typography}>Excellent</Typography>
+            </Grid>
+            <Grid item xs className={this.classes.ratingRow}>
+              <input data-key="good" type="checkbox" onChange={(e) => { this.handleRatings(e); }} checked={ratings.good} />
+              <Typography className={this.classes.typography}>Good</Typography>
+            </Grid>
+            <Grid item xs className={this.classes.ratingRow}>
+              <input data-key="average" type="checkbox" onChange={(e) => { this.handleRatings(e); }} checked={ratings.average} />
+              <Typography className={this.classes.typography}>Average</Typography>
+            </Grid>
+            <Grid item xs className={this.classes.ratingRow}>
+              <input data-key="poor" type="checkbox" onChange={(e) => { this.handleRatings(e); }} checked={ratings.poor} />
+              <Typography className={this.classes.typography}>Poor</Typography>
+            </Grid>
+            <Grid item xs className={this.classes.ratingRow}>
+              <input data-key="terrible" type="checkbox" onChange={(e) => { this.handleRatings(e); }} checked={ratings.terrible} />
+              <Typography className={this.classes.typography}>Terrible</Typography>
+            </Grid>
+          </div>
+          <div>
+            <Typography className={this.classes.typography} component="p" data-testid="goodCount">{travelerRatings.excellent}</Typography>
+            <Typography className={this.classes.typography} component="p" data-testid="goodCount">{travelerRatings.good}</Typography>
+            <Typography className={this.classes.typography} component="p" data-testid="averageCount">{travelerRatings.average}</Typography>
+            <Typography className={this.classes.typography} component="p" data-testid="poorCount">{travelerRatings.poor}</Typography>
+            <Typography className={this.classes.typography} component="p" data-testid="terribleCount">{travelerRatings.terrible}</Typography>
+          </div>
         </div>
-        <Typography className={classes.typography} component="p" data-testid="goodCount">{travelerRatings.good}</Typography>
       </Grid>
-      <Grid item xs className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Average</Typography>
-        <div className={classes.progressBarTrack} data-testid="progressBar">
-          <div className={classes.progressBarIndicator} />
-        </div>
-        <Typography className={classes.typography} component="p" data-testid="averageCount">{travelerRatings.average}</Typography>
-      </Grid>
-      <Grid item xs className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Poor</Typography>
-        <div className={classes.progressBarTrack} data-testid="progressBar">
-          <div className={classes.progressBarIndicator} />
-        </div>
-        <Typography className={classes.typography} component="p" data-testid="poorCount">{travelerRatings.poor}</Typography>
-      </Grid>
-      <Grid item xs className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Terrible</Typography>
-        <div className={classes.progressBarTrack} data-testid="progressBar">
-          <div className={classes.progressBarIndicator} />
-        </div>
-        <Typography className={classes.typography} component="p" data-testid="terribleCount">{travelerRatings.terrible}</Typography>
-      </Grid>
-    </Grid>
-  );
+    );
+  }
 
-  const TravelerTypeColumn = () => (
-    <Grid item xs={2}>
-      <Grid className={classes.ratingRow}>
-        <Typography className={classes.typographyHeader}>Traveler type</Typography>
+  TravelerTypeColumn() {
+    const { handleChangeFilterTravelerType, types } = this.state;
+    return (
+      <Grid item xs={3}>
+        <Grid className={this.classes.ratingRow}>
+          <Typography className={this.classes.typographyHeader}>Traveler type</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input checked={types.families} data-key="families" onChange={(e) => { this.handleType(e); }} type="checkbox" />
+          <Typography className={this.classes.typography}>Families</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input checked={types.couples} data-key="couples" onChange={(e) => { this.handleType(e); }} type="checkbox" />
+          <Typography className={this.classes.typography}>Couples</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input checked={types.solo} data-key="solo" onChange={(e) => { this.handleType(e); }} type="checkbox" />
+          <Typography className={this.classes.typography}>Solo</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input checked={types.business} data-key="business" onChange={(e) => { this.handleType(e); }} type="checkbox" />
+          <Typography className={this.classes.typography}>Business</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input checked={types.friends} data-key="friends" onChange={(e) => { this.handleType(e); }} type="checkbox" />
+          <Typography className={this.classes.typography}>Friends</Typography>
+        </Grid>
       </Grid>
-      <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Families</Typography>
-      </Grid>
-      <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Couples</Typography>
-      </Grid>
-      <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Solo</Typography>
-      </Grid>
-      <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Business</Typography>
-      </Grid>
-      <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Friends</Typography>
-      </Grid>
-    </Grid>
-  );
+    );
+  };
 
-  const TimeOfYearColumn = () => (
-    <Grid item xs={2}>
-      <Grid className={classes.ratingRow}>
-        <Typography className={classes.typographyHeader}>Time of year</Typography>
+  TimeOfYearColumn() {
+    const { timeOfYear } = this.state;
+    return (
+      <Grid item xs={3}>
+        <Grid className={this.classes.ratingRow}>
+          <Typography className={this.classes.typographyHeader}>Time of year</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input checked={timeOfYear.marMay} data-key="marMay" onChange={(e) => { this.handleTimeOfYear(e); }} type="checkbox" />
+          <Typography className={this.classes.typography}>Mar-May</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input checked={timeOfYear.junAug} data-key="junAug" onChange={(e) => { this.handleTimeOfYear(e); }} type="checkbox" />
+          <Typography className={this.classes.typography}>Jun-Aug</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input checked={timeOfYear.sepNov} data-key="sepNov" onChange={(e) => { this.handleTimeOfYear(e); }} type="checkbox" />
+          <Typography className={this.classes.typography}>Sep-Nov</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input checked={timeOfYear.decFeb} data-key="decFeb" onChange={(e) => { this.handleTimeOfYear(e); }} type="checkbox" />
+          <Typography className={this.classes.typography}>Dec-Feb</Typography>
+        </Grid>
       </Grid>
-      <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Mar-May</Typography>
-      </Grid>
-      <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Jun-Aug</Typography>
-      </Grid>
-      <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Sep-Nov</Typography>
-      </Grid>
-      <Grid className={classes.ratingRow}>
-        <input type="checkbox" />
-        <Typography className={classes.typography}>Dec-Feb</Typography>
-      </Grid>
-    </Grid>
-  );
+    );
+  }
 
-  const LanguageColumn = () => (
-    <Grid item xs={2}>
-      <Grid className={classes.ratingRow}>
-        <Typography className={classes.typographyHeader}>Language</Typography>
+  LanguageColumn() {
+    const { language } = this.state;
+    return (
+      <Grid item xs={3}>
+        <Grid className={this.classes.ratingRow}>
+          <Typography className={this.classes.typographyHeader}>Language</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input data-key="all" checked={language.all} onChange={(e) => { this.handleLanguage(e); }} type="radio" />
+          <Typography className={this.classes.typography}>All languages</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input data-key="english" checked={language.english} onChange={(e) => { this.handleLanguage(e); }} type="radio" />
+          <Typography className={this.classes.typography}>English</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input data-key="spanish" checked={language.spanish} onChange={(e) => { this.handleLanguage(e); }} type="radio" />
+          <Typography className={this.classes.typography}>Spanish</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input data-key="french" checked={language.french} onChange={(e) => { this.handleLanguage(e); }} type="radio" />
+          <Typography className={this.classes.typography}>French</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input data-key="italian" checked={language.italian} onChange={(e) => { this.handleLanguage(e); }} type="radio" />
+          <Typography className={this.classes.typography}>Italian</Typography>
+        </Grid>
+        <Grid className={this.classes.ratingRow}>
+          <input data-key="russian" checked={language.russian} onChange={(e) => { this.handleLanguage(e); }} type="radio" />
+          <Typography className={this.classes.typography}>Russian</Typography>
+        </Grid>
       </Grid>
-      <Grid className={classes.ratingRow}>
-        <input name="languageChoice" type="radio" />
-        <Typography className={classes.typography}>All languages</Typography>
-      </Grid>
-      <Grid className={classes.ratingRow}>
-        <input name="languageChoice" type="radio" />
-        <Typography className={classes.typography}>English</Typography>
-      </Grid>
-      <Grid className={classes.ratingRow}>
-        <input name="languageChoice" type="radio" />
-        <Typography className={classes.typography}>Spanish</Typography>
-      </Grid>
-      <Grid className={classes.ratingRow}>
-        <input name="languageChoice" type="radio" />
-        <Typography className={classes.typography}>French</Typography>
-      </Grid>
-      <Grid className={classes.ratingRow}>
-        <input name="languageChoice" type="radio" />
-        <Typography className={classes.typography}>Italian</Typography>
-      </Grid>
-      <Grid className={classes.ratingRow}>
-        <input name="languageChoice" type="radio" />
-        <Typography className={classes.typography}>Italian</Typography>
-      </Grid>
-    </Grid>
-  );
+    );
+  }
 
-  return (
-    <Grid container spacing={3} className={classes.root}>
-      <Grid container item xs={12} spacing={3} className={classes.main}>
-        <RatingColumn />
-        <TravelerTypeColumn />
-        <TimeOfYearColumn />
-        <LanguageColumn />
+  render() {
+    return (
+      <Grid container spacing={3} className={this.classes.root}>
+        <Grid container item xs={12} spacing={3} className={this.classes.main}>
+          {this.RatingColumn()}
+          {this.TravelerTypeColumn()}
+          {this.TimeOfYearColumn()}
+          {this.LanguageColumn()}
+        </Grid>
       </Grid>
-    </Grid>
-  );
-};
+    );
+  }
+}
 
 ReviewFilters.propTypes = {
   travelerRatings: Proptypes.shape({
@@ -211,6 +307,9 @@ ReviewFilters.propTypes = {
     poor: Proptypes.number,
     terrible: Proptypes.number,
   }),
+  handleChangeFilterTravelerType: Proptypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  classes: Proptypes.object.isRequired,
 };
 
 ReviewFilters.defaultProps = {
@@ -223,4 +322,4 @@ ReviewFilters.defaultProps = {
   }),
 };
 
-export default ReviewFilters;
+export default withStyles(useStyles)(ReviewFilters);

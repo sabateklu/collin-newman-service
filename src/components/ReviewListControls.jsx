@@ -9,6 +9,15 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import RateReviewIcon from '@material-ui/icons/RateReview';
+import Modal from '@material-ui/core/Modal';
+import Rating from '@material-ui/lab/Rating';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { DropzoneArea } from 'material-ui-dropzone';
 import ReviewFilters from './ReviewFilters';
 import ReviewKeywords from './ReviewKeywords';
 
@@ -36,12 +45,137 @@ const useStyles = makeStyles((theme) => ({
   writeReview: {
     marginTop: '2vh',
     marginRight: '2vw',
+    width: '100%',
+  },
+  paper: {
+    position: 'absolute',
+    width: '30%',
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #34E0A1',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: '10%',
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    width: '100%',
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  modalContainer: {
+    width: '55%',
+  },
+  modalItem: {
+    width: '100%',
+    margin: theme.spacing(1),
+  },
+  modalItemDropbox: {
+    width: '100%',
+    margin: theme.spacing(1),
+  },
+  modalMain: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'scroll',
   },
 }));
 
 const ReviewListControls = (props) => {
   const classes = useStyles();
-  const { reviewsCount, writeReview, travelerRatings } = props;
+  const {
+    reviewsCount, writeReview, travelerRatings, handleChangeFilterTravelerType,
+  } = props;
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const modalBody = () => (
+    <Card className={classes.paper}>
+      <CardContent>
+        <Typography>Rate your experience</Typography>
+        <Rating
+          max={5}
+          id="ratingInput"
+          className={classes.iconFilled}
+          name="rating"
+          icon={(
+            <FiberManualRecordIcon />
+          )}
+        />
+        <Typography className={classes.modalItem}>Whats your name?</Typography>
+        <TextField className={classes.modalItem} id="nameInput" label="Name" variant="outlined" multiline />
+        <Typography className={classes.modalItem}>Where are you from?</Typography>
+        <TextField className={classes.modalItem} id="homeInput" label="Where from" variant="outlined" multiline />
+        <Typography className={classes.modalItem}>Leave a review</Typography>
+        <TextField className={classes.modalItem} id="bodyInput" label="How was it" variant="outlined" multiline />
+        <Typography className={classes.modalItem}>Give your review a title</Typography>
+        <TextField className={classes.modalItem} id="titleInput" label="Title" variant="outlined" />
+        <Typography className={classes.modalItem}>When did you go?</Typography>
+        <FormControl className={classes.formControl} variant="outlined">
+          <InputLabel id="demo-simple-select-outlined-label">When</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="whenInput"
+            onChange={() => null}
+            label="Time of year"
+            defaultValue=""
+          >
+            <MenuItem value="Mar-May">Mar-May</MenuItem>
+            <MenuItem value="Jun-Aug">Jun-Aug</MenuItem>
+            <MenuItem value="Sep-Nov">Sep-Nov</MenuItem>
+            <MenuItem value="Dec-Feb">Dec-Feb</MenuItem>
+          </Select>
+        </FormControl>
+        <Typography className={classes.modalItem}>Who did you go with?</Typography>
+        <FormControl className={classes.formControl} variant="outlined">
+          <InputLabel id="demo-simple-select-outlined-label">Who</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="whoInput"
+            onChange={() => null}
+            label="Time of year"
+            defaultValue={[]}
+            multiple
+          >
+            <MenuItem value="Families">Families</MenuItem>
+            <MenuItem value="Couples">Couples</MenuItem>
+            <MenuItem value="Solo">Solo</MenuItem>
+            <MenuItem value="Business">Business</MenuItem>
+            <MenuItem value="Friends">Friends</MenuItem>
+          </Select>
+        </FormControl>
+        <DropzoneArea
+          className={classes.modalItemDropbox}
+          acceptedFiles={['image/*']}
+          id="fileInput"
+          dropzoneText="Add some photos from your trip!"
+          onChange={(files) => console.log('Files:', files)}
+        />
+        <Button
+          className={classes.writeReview}
+          onClick={() => {
+            writeReview();
+            handleClose();
+          }}
+          variant="contained"
+        >Submit
+        </Button>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <Card>
       <CardHeader
@@ -61,16 +195,28 @@ const ReviewListControls = (props) => {
           </Typography>
         )}
         action={(
-          <Button onClick={() => writeReview()} className={classes.writeReview} variant="contained">
+          <Button onClick={() => handleOpen()} className={classes.writeReview} variant="contained">
             Write a review.
           </Button>
         )}
       />
       <CardContent>
         <Divider />
-        <ReviewFilters travelerRatings={travelerRatings} />
+        <ReviewFilters
+          travelerRatings={travelerRatings}
+          handleChangeFilterTravelerType={handleChangeFilterTravelerType}
+        />
         <ReviewKeywords />
       </CardContent>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        className={classes.modalMain}
+      >
+        {modalBody()}
+      </Modal>
     </Card>
   );
 };
@@ -85,6 +231,7 @@ ReviewListControls.propTypes = {
     terrible: Proptypes.number,
   }).isRequired,
   writeReview: Proptypes.func.isRequired,
+  handleChangeFilterTravelerType: Proptypes.func.isRequired,
 };
 
 export default ReviewListControls;

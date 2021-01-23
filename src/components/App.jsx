@@ -2,6 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 import ReviewListControls from './ReviewListControls';
 import SearchBar from './SearchBar';
 import ReviewList from './ReviewList';
@@ -14,13 +15,16 @@ class App extends React.Component {
       travelerRatings: {},
       currentPage: 0,
       loaded: false,
-      reviewsFilter: (val) => val,
-      newReview: {},
+      reviewsBodyFilter: '',
+      reviewsTravelerTypeFilter: [],
+      reviewsTimeOfYearFilter: [],
+      reviewsLanguageFilter: null,
     };
     this.helpfulClickHandler = this.helpfulClickHandler.bind(this);
     this.handleClickClearInput = this.handleClickClearInput.bind(this);
-    this.handleChangeFilterReviews = this.handleChangeFilterReviews.bind(this);
+    this.handleChangeFilterBody = this.handleChangeFilterBody.bind(this);
     this.writeReview = this.writeReview.bind(this);
+    this.handleChangeFilterTravelerType = this.handleChangeFilterTravelerType.bind(this);
   }
 
   componentDidMount() {
@@ -28,11 +32,30 @@ class App extends React.Component {
   }
 
   handleClickClearInput() {
-    this.setState({ reviewsFilter: (val) => val });
+    this.setState({ reviewsBodyFilter: [] });
   }
 
-  handleChangeFilterReviews(searchInput) {
-    this.setState({ reviewsFilter: (review) => (review.reviewBody.includes(searchInput)) });
+  handleChangeFilterBody(searchInput) {
+    this.setState({ reviewsBodyFilter: searchInput });
+  }
+
+  handleChangeFilterTravelerType() {
+    const checkboxs = document.querySelectorAll('input:checked[name="travelerType"]');
+    console.log('Checked:', checkboxs);
+    const travelerTypes = [];
+    checkboxs.forEach((box) => { travelerTypes.push(box.value); });
+    console.log(travelerTypes);
+    this.setState({ reviewsTravelerTypeFilter: travelerTypes });
+  }
+
+  handleChangeFilterTimeOfYear(timeOfYear) {
+    const { reviewsTimeOfYearFilter } = this.state;
+    this.setState({ reviewsTimeOfYearFilter: [...reviewsTimeOfYearFilter, timeOfYear] });
+  }
+
+  handleChangeFilterLanguage(language) {
+    const { reviewsLanguageFilter } = this.state;
+    this.setState({ reviewsLanguageFilter: [...reviewsLanguageFilter, language] });
   }
 
   getData() {
@@ -46,14 +69,62 @@ class App extends React.Component {
   }
 
   getReviews(pageNumber) {
-    const { reviews, reviewsFilter } = this.state;
     const start = pageNumber * 10 - 10;
     const end = pageNumber * 10;
-    const filteredReviews = reviews.filter((review) => reviewsFilter(review));
+    const filteredReviews = this.filterReviews();
     if (pageNumber === 0) {
       return { reviewsToRender: filteredReviews.slice(0, 10), allReviews: filteredReviews };
     }
     return { reviewsToRender: filteredReviews.slice(start, end), allReviews: filteredReviews };
+  }
+
+  filterReviews() {
+    const {
+      reviews,
+      reviewsBodyFilter,
+      reviewsLanguageFilter,
+      reviewsTimeOfYearFilter,
+      reviewsTravelerTypeFilter,
+    } = this.state;
+
+    const applyAllFilters = () => {
+      let reviewsAfterFilter = reviews;
+      for (let i = 0; i < 3; i += 1) {
+        let reviewProp;
+        let reviewFilter;
+        if (i === 0) {
+          reviewFilter = [reviewsBodyFilter];
+          reviewProp = 'reviewBody';
+        }
+        if (i === 1) {
+          reviewFilter = reviewsTravelerTypeFilter;
+          reviewProp = 'travelerType';
+        }
+        if (i === 2) {
+          reviewFilter = reviewsTimeOfYearFilter;
+          reviewProp = 'timeOfYear';
+        }
+        reviewsAfterFilter = reviewsAfterFilter.filter((review) => {
+          let count = 0;
+          for (let j = 0; j < reviewFilter.length; j += 1) {
+            if (review[reviewProp].includes(reviewFilter[j])) {
+              count += 1;
+            }
+          }
+          if (count === reviewFilter.length) {
+            return true;
+          }
+          return false;
+        });
+      }
+      if (reviewsLanguageFilter) {
+        reviewsAfterFilter = reviewsAfterFilter.filter((review) => (
+          review.language === reviewsLanguageFilter
+        ));
+      }
+      return reviewsAfterFilter;
+    };
+    return applyAllFilters();
   }
 
   helpfulClickHandler(e) {
@@ -94,7 +165,23 @@ class App extends React.Component {
   }
 
   writeReview() {
-    console.log('New review', this.newReview);
+    const review = {};
+    review.userName = document.getElementById('nameInput').value;
+    review.reviewTitle = document.getElementById('titleInput').value;
+    review.reviewBody = document.getElementById('bodyInput').value;
+    review.userHomeLocation = document.getElementById('homeInput').value;
+    review.starRating = document.getElementById('ratingInput').value;
+    // review.dateOfExperience = document.getElementById('whenInput');
+    review.dateOfExperience = Date.now();
+    review.destination = 'Bangkok';
+    review.images = document.getElementById('fileInput');
+
+    axios.post('/api/reviews', review)
+      .then((res) => {
+        console.log(res);
+        this.getData();
+      })
+      .catch((err) => console.log(err));
   }
 
   renderView() {
@@ -108,12 +195,14 @@ class App extends React.Component {
       return (
         <>
           <ReviewListControls
-            writeReview={this.writeReview()}
+            writeReview={this.writeReview}
             travelerRatings={travelerRatings}
             reviewsCount={reviewsCount}
+            handleChangeFilterTravelerType={this.handleChangeFilterTravelerType}
           />
+          <Divider />
           <SearchBar
-            handleChangeFilterReviews={this.handleChangeFilterReviews}
+            handleChangeFilterReviews={this.handleChangeFilterBody}
             handleClickClearInput={this.handleClickClearInput}
           />
           <ReviewList

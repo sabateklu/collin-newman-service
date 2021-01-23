@@ -30,6 +30,10 @@ const generateData = () => {
           for (let k = 0; k < Math.floor(Math.random() * 6); k++) {
             randomImages.push(`http://d20lp9tw1uk7y6.cloudfront.net/images/tripadvisor_thailand_${Math.floor(Math.random() * 100)}.jpg`)
           }
+          const randomTravelerTypes = [];
+          for (let type = 0; type < Math.floor(Math.random() * 6); type++) {
+            randomTravelerTypes.push(travelerTypes[type]);
+          }
           let currentLanguage = reviewsByLanguage[languages[j]];
           //google translate is limited to 3900 characters so my foreign language reviews
           //are kind of small so i will add 2 random review bodys together to make a single
@@ -49,7 +53,7 @@ const generateData = () => {
             helpfulVotes: Math.floor(Math.random() * (20 - 1) + 1),
             destination: destinations[j],
             language: languages[j],
-            travelerType: travelerTypes[Math.floor(Math.random() * travelerTypes.length)],
+            travelerType: randomTravelerTypes,
           };
           dummyData.push(dummyReview);
         }
