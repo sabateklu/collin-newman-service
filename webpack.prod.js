@@ -1,14 +1,18 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   target: 'node',
-  mode: 'development',
-  plugins: [new HtmlWebpackPlugin(), new BundleAnalyzerPlugin()],
+  mode: 'production',
+  plugins: [new HtmlWebpackPlugin(), new BundleAnalyzerPlugin({analyzerMode: 'server'})],
   entry: './src',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'public'),
   },
   module: {
@@ -40,6 +44,12 @@ module.exports = {
           },
         ],
       },
+    ],
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new CssMinimizerPlugin(),
     ],
   },
   resolve: {
