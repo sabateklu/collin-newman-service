@@ -82,11 +82,9 @@ class App extends React.Component {
     // in the future this would get reviews by location
     // but that would require outside assistance from another service
     // to know which location to grab
-    axios.get('/api/reviews/')
+    axios.get('http://localhost:3004/api/reviews/')
       .then((res) => {
         this.setState({ reviews: res.data });
-        let myReview = this.state.reviews.filter(review => review.reviewBody === 'Hello world');
-        console.log('my review', myReview);
         this.populateRatingsAndPages();
       })
       .catch((err) => console.log(err));
@@ -147,7 +145,7 @@ class App extends React.Component {
 
   helpfulClickHandler(e) {
     const id = e.target.getAttribute('data-id');
-    axios.patch(`/api/reviews/${id}`)
+    axios.patch(`http://localhost:3004/api/reviews/${id}`)
       .then(() => {
         this.getData();
       })
@@ -241,7 +239,7 @@ class App extends React.Component {
       <Grid
         container
         spacing={0}
-        alignItems="center"
+        alignItems="flex-start"
         justify="center"
         style={{ minHeight: '100vh' }}
       >

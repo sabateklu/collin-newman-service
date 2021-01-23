@@ -4,7 +4,6 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import Pagination from './Pagination';
 import ReviewCard from './ReviewCard';
 
 const noReviewsCard = () => (
@@ -24,9 +23,8 @@ const noReviewsCard = () => (
   </Card>
 );
 
-const ReviewList = ({ reviewsToRender, helpfulClickHandler, pages }) => {
+const ReviewList = ({ reviewsToRender, helpfulClickHandler }) => {
   let reviewList = noReviewsCard();
-  let pagination = null;
 
   if (reviewsToRender.length > 0) {
     reviewList = reviewsToRender.map((review) => {
@@ -42,15 +40,11 @@ const ReviewList = ({ reviewsToRender, helpfulClickHandler, pages }) => {
         </>
       );
     });
-    if (pages > 1) {
-      pagination = <Pagination />;
-    }
   }
 
   return (
     <div>
       {reviewList}
-      {pagination}
     </div>
   );
 };
@@ -71,7 +65,6 @@ ReviewList.propTypes = {
     _id: Proptypes.string,
   })).isRequired,
   helpfulClickHandler: Proptypes.func.isRequired,
-  pages: Proptypes.number.isRequired,
 };
 
 export default ReviewList;
