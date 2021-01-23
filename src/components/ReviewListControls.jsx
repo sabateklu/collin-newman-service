@@ -19,7 +19,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { DropzoneArea } from 'material-ui-dropzone';
 import ReviewFilters from './ReviewFilters';
-import ReviewKeywords from './ReviewKeywords';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,10 +87,17 @@ const useStyles = makeStyles((theme) => ({
 const ReviewListControls = (props) => {
   const classes = useStyles();
   const {
-    reviewsCount, writeReview, travelerRatings, handleChangeFilterTravelerType,
+    reviewsCount,
+    writeReview,
+    travelerRatings,
+    handleChangeFilterTravelerType,
+    handleChangeFilterLanguage,
+    handleChangeFilterTimeOfYear,
+    handleChangeRatingFilter,
   } = props;
 
   const [open, setOpen] = React.useState(false);
+  const [value, updateRating] = React.useState(0);
 
   const handleOpen = () => {
     setOpen(true);
@@ -105,11 +111,21 @@ const ReviewListControls = (props) => {
     <Card className={classes.paper}>
       <CardContent>
         <Typography>Rate your experience</Typography>
+        <input
+          id="hiddenInput"
+          name="rating"
+          type="number"
+          value={value}
+          hidden
+          readOnly
+        />
         <Rating
           max={5}
           id="ratingInput"
           className={classes.iconFilled}
-          name="rating"
+          name="ratingStars"
+          value={value}
+          onChange={(event, newValue) => updateRating(newValue)}
           icon={(
             <FiberManualRecordIcon />
           )}
@@ -149,11 +165,11 @@ const ReviewListControls = (props) => {
             defaultValue={[]}
             multiple
           >
-            <MenuItem value="Families">Families</MenuItem>
-            <MenuItem value="Couples">Couples</MenuItem>
-            <MenuItem value="Solo">Solo</MenuItem>
-            <MenuItem value="Business">Business</MenuItem>
-            <MenuItem value="Friends">Friends</MenuItem>
+            <MenuItem value="families">Families</MenuItem>
+            <MenuItem value="couples">Couples</MenuItem>
+            <MenuItem value="solo">Solo</MenuItem>
+            <MenuItem value="business">Business</MenuItem>
+            <MenuItem value="friends">Friends</MenuItem>
           </Select>
         </FormControl>
         <DropzoneArea
@@ -205,8 +221,10 @@ const ReviewListControls = (props) => {
         <ReviewFilters
           travelerRatings={travelerRatings}
           handleChangeFilterTravelerType={handleChangeFilterTravelerType}
+          handleChangeFilterTimeOfYear={handleChangeFilterTimeOfYear}
+          handleChangeFilterLanguage={handleChangeFilterLanguage}
+          handleChangeRatingFilter={handleChangeRatingFilter}
         />
-        <ReviewKeywords />
       </CardContent>
       <Modal
         open={open}
@@ -232,6 +250,9 @@ ReviewListControls.propTypes = {
   }).isRequired,
   writeReview: Proptypes.func.isRequired,
   handleChangeFilterTravelerType: Proptypes.func.isRequired,
+  handleChangeFilterTimeOfYear: Proptypes.func.isRequired,
+  handleChangeFilterLanguage: Proptypes.func.isRequired,
+  handleChangeRatingFilter: Proptypes.func.isRequired,
 };
 
 export default ReviewListControls;

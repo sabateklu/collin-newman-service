@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unused-state */
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 /* eslint-disable no-console */
 import React from 'react';
 import axios from 'axios';
@@ -19,12 +22,16 @@ class App extends React.Component {
       reviewsTravelerTypeFilter: [],
       reviewsTimeOfYearFilter: [],
       reviewsLanguageFilter: null,
+      reviewsRatingFilter: null,
     };
     this.helpfulClickHandler = this.helpfulClickHandler.bind(this);
     this.handleClickClearInput = this.handleClickClearInput.bind(this);
     this.handleChangeFilterBody = this.handleChangeFilterBody.bind(this);
     this.writeReview = this.writeReview.bind(this);
     this.handleChangeFilterTravelerType = this.handleChangeFilterTravelerType.bind(this);
+    this.handleChangeFilterLanguage = this.handleChangeFilterLanguage.bind(this);
+    this.handleChangeFilterTimeOfYear = this.handleChangeFilterTimeOfYear.bind(this);
+    this.handleChangeRatingFilter = this.handleChangeRatingFilter.bind(this);
   }
 
   componentDidMount() {
@@ -39,30 +46,47 @@ class App extends React.Component {
     this.setState({ reviewsBodyFilter: searchInput });
   }
 
-  handleChangeFilterTravelerType() {
-    const checkboxs = document.querySelectorAll('input:checked[name="travelerType"]');
-    console.log('Checked:', checkboxs);
-    const travelerTypes = [];
-    checkboxs.forEach((box) => { travelerTypes.push(box.value); });
-    console.log(travelerTypes);
-    this.setState({ reviewsTravelerTypeFilter: travelerTypes });
+  handleChangeFilterTravelerType(types) {
+    if (types.length === 0) {
+      this.setState({ reviewsTravelerTypeFilter: [] });
+    } else {
+      this.setState({ reviewsTravelerTypeFilter: types });
+    }
   }
 
   handleChangeFilterTimeOfYear(timeOfYear) {
-    const { reviewsTimeOfYearFilter } = this.state;
-    this.setState({ reviewsTimeOfYearFilter: [...reviewsTimeOfYearFilter, timeOfYear] });
+    if (timeOfYear.length === 0) {
+      this.setState({ reviewsTimeOfYearFilter: ['marMay', 'junAug', 'sepNov', 'decFeb'] });
+    } else {
+      this.setState({ reviewsTimeOfYearFilter: timeOfYear });
+    }
   }
 
   handleChangeFilterLanguage(language) {
-    const { reviewsLanguageFilter } = this.state;
-    this.setState({ reviewsLanguageFilter: [...reviewsLanguageFilter, language] });
+    if (language !== 'all') {
+      this.setState({ reviewsLanguageFilter: language });
+    } else {
+      this.setState({ reviewsLanguageFilter: null });
+    }
+  }
+
+  handleChangeRatingFilter(rating) {
+    if (rating.length > 0) {
+      this.setState({ reviewsRatingFilter: rating });
+    } else {
+      this.setState({ reviewsRatingFilter: [] });
+    }
   }
 
   getData() {
-    // Im hardcoding the location for now
-    axios.get(`/api/reviews/${'Bangkok'}`)
+    // in the future this would get reviews by location
+    // but that would require outside assistance from another service
+    // to know which location to grab
+    axios.get('/api/reviews/')
       .then((res) => {
         this.setState({ reviews: res.data });
+        let myReview = this.state.reviews.filter(review => review.reviewBody === 'Hello world');
+        console.log('my review', myReview);
         this.populateRatingsAndPages();
       })
       .catch((err) => console.log(err));
@@ -83,47 +107,41 @@ class App extends React.Component {
       reviews,
       reviewsBodyFilter,
       reviewsLanguageFilter,
-      reviewsTimeOfYearFilter,
       reviewsTravelerTypeFilter,
     } = this.state;
-
     const applyAllFilters = () => {
-      let reviewsAfterFilter = reviews;
-      for (let i = 0; i < 3; i += 1) {
-        let reviewProp;
-        let reviewFilter;
-        if (i === 0) {
-          reviewFilter = [reviewsBodyFilter];
-          reviewProp = 'reviewBody';
+      const filteredReviews = reviews.filter((review) => {
+        if (review.reviewBody.includes(reviewsBodyFilter)) {
+          return review;
         }
-        if (i === 1) {
-          reviewFilter = reviewsTravelerTypeFilter;
-          reviewProp = 'travelerType';
+        if (reviewsBodyFilter === '') {
+          return review;
         }
-        if (i === 2) {
-          reviewFilter = reviewsTimeOfYearFilter;
-          reviewProp = 'timeOfYear';
+      }).filter((review) => {
+        if (review.language === reviewsLanguageFilter) {
+          return review;
         }
-        reviewsAfterFilter = reviewsAfterFilter.filter((review) => {
-          let count = 0;
-          for (let j = 0; j < reviewFilter.length; j += 1) {
-            if (review[reviewProp].includes(reviewFilter[j])) {
-              count += 1;
-            }
+        if (reviewsLanguageFilter === null) {
+          return review;
+        }
+      }).filter((review) => {
+        let pass = false;
+        for (let i = 0; i < reviewsTravelerTypeFilter.length; i += 1) {
+          if (review.travelerType.includes(reviewsTravelerTypeFilter[i])) {
+            pass = true;
+            break;
           }
-          if (count === reviewFilter.length) {
-            return true;
-          }
-          return false;
-        });
-      }
-      if (reviewsLanguageFilter) {
-        reviewsAfterFilter = reviewsAfterFilter.filter((review) => (
-          review.language === reviewsLanguageFilter
-        ));
-      }
-      return reviewsAfterFilter;
+        }
+        if (pass) {
+          return review;
+        }
+        if (reviewsTravelerTypeFilter.length === 0) {
+          return review;
+        }
+      });
+      return filteredReviews;
     };
+
     return applyAllFilters();
   }
 
@@ -170,12 +188,11 @@ class App extends React.Component {
     review.reviewTitle = document.getElementById('titleInput').value;
     review.reviewBody = document.getElementById('bodyInput').value;
     review.userHomeLocation = document.getElementById('homeInput').value;
-    review.starRating = document.getElementById('ratingInput').value;
+    review.starRating = Number(document.getElementById('hiddenInput').value);
     // review.dateOfExperience = document.getElementById('whenInput');
     review.dateOfExperience = Date.now();
     review.destination = 'Bangkok';
-    review.images = document.getElementById('fileInput');
-
+    review.images = [];
     axios.post('/api/reviews', review)
       .then((res) => {
         console.log(res);
@@ -199,6 +216,9 @@ class App extends React.Component {
             travelerRatings={travelerRatings}
             reviewsCount={reviewsCount}
             handleChangeFilterTravelerType={this.handleChangeFilterTravelerType}
+            handleChangeFilterTimeOfYear={this.handleChangeFilterTimeOfYear}
+            handleChangeFilterLanguage={this.handleChangeFilterLanguage}
+            handleChangeRatingFilter={this.handleChangeRatingFilter}
           />
           <Divider />
           <SearchBar

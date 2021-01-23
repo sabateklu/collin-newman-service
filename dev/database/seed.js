@@ -21,8 +21,8 @@ const generateData = () => {
       });
       const dummyData = [];
       const destinations = ['Phitsanulok', 'Bangkok', 'Phuket', 'Trang', 'Ayutthaya'];
-      const languages = ['English', 'Italian', 'Spanish', 'French', 'Russian'];
-      const travelerTypes  = ['Families', 'Couple', 'Solo', 'Business', 'Friends'];
+      const languages = ['english', 'italian', 'spanish', 'french', 'russian'];
+      const travelerTypes  = ['families', 'couples', 'solo', 'business', 'friends'];
       console.log(reviewsByLanguage);
       for (let j = 0; j < destinations.length; j++) {
         for (let i = 0; i < 100; i += 1) {
@@ -31,7 +31,7 @@ const generateData = () => {
             randomImages.push(`http://d20lp9tw1uk7y6.cloudfront.net/images/tripadvisor_thailand_${Math.floor(Math.random() * 100)}.jpg`)
           }
           const randomTravelerTypes = [];
-          for (let type = 0; type < Math.floor(Math.random() * 6); type++) {
+          for (let type = 0; type < Math.floor(Math.random() * (6 - 1) + 1); type++) {
             randomTravelerTypes.push(travelerTypes[type]);
           }
           let currentLanguage = reviewsByLanguage[languages[j]];

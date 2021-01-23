@@ -53,6 +53,7 @@ class ReviewFilters extends React.Component {
     this.state = {
       travelerRatings: props.travelerRatings,
       handleChangeFilterTravelerType: props.handleChangeFilterTravelerType,
+      handleChangeRatingFilter: props.handleChangeRatingFilter,
       ratings: {
         excellent: false,
         good: false,
@@ -83,71 +84,91 @@ class ReviewFilters extends React.Component {
       },
     };
     this.classes = props.classes;
-  }
 
-  handleRatings(e) {
-    const { ratings } = this.state;
-    const rating = e.target.getAttribute('data-key');
-    const otherRatings = Object.keys(ratings).filter((item) => item !== rating);
-    const filteredRatings = {};
-    otherRatings.forEach((key) => {
-      filteredRatings[key] = ratings[key];
-    });
-    this.setState({
-      ratings: {
-        ...filteredRatings,
-        [rating]: !ratings[rating],
-      },
-    });
-    console.log(this.state);
-  }
+    this.handleRatings = function handleRatings(e) {
+      const { ratings } = this.state;
+      const rating = e.target.getAttribute('data-key');
+      const otherRatings = Object.keys(ratings).filter((item) => item !== rating);
+      const filteredRatings = {};
+      otherRatings.forEach((key) => {
+        filteredRatings[key] = ratings[key];
+      });
+      this.setState({
+        ratings: {
+          ...filteredRatings,
+          [rating]: !ratings[rating],
+        },
+      });
+      console.log(this.state);
+      // handleChangeRatingFilter();
+    };
 
-  handleType(e) {
-    const { types } = this.state;
-    const type = e.target.getAttribute('data-key');
-    const otherTypes = Object.keys(types).filter((item) => item !== type);
-    const filteredtypes = {};
-    otherTypes.forEach((key) => {
-      filteredtypes[key] = types[key];
-    });
-    this.setState({
-      types: {
-        ...filteredtypes,
-        [type]: !types[type],
-      },
-    });
-  }
+    this.handleType = function handleType(e) {
+      const { types } = this.state;
+      const { handleChangeFilterTravelerType } = this.props;
+      const type = e.target.getAttribute('data-key');
+      const otherTypes = Object.keys(types).filter((item) => item !== type);
+      const filteredtypes = {};
+      otherTypes.forEach((key) => {
+        filteredtypes[key] = types[key];
+      });
 
-  handleTimeOfYear(e) {
-    const { timeOfYear } = this.state;
-    const time = e.target.getAttribute('data-key');
-    const otherTimes = Object.keys(timeOfYear).filter((item) => item !== time);
-    const filteredTimes = {};
-    otherTimes.forEach((key) => {
-      filteredTimes[key] = timeOfYear[key];
-    });
-    this.setState({
-      timeOfYear: {
-        ...filteredTimes,
-        [time]: !timeOfYear[time],
-      },
-    });
-  }
+      const travelerTypes = [];
+      otherTypes.forEach((updatedType) => {
+        if (types[updatedType]) {
+          travelerTypes.push(updatedType);
+        }
+      });
+      if (!types[type]) {
+        travelerTypes.push(type);
+      }
 
-  handleLanguage(e) {
-    const key = e.target.getAttribute('data-key');
-    const val = e.target.checked;
-    this.setState({
-      language: {
-        all: false,
-        english: false,
-        spanish: false,
-        french: false,
-        italian: false,
-        russian: false,
-        [key]: val,
-      },
-    });
+      this.setState({
+        types: {
+          ...filteredtypes,
+          [type]: !types[type],
+        },
+      });
+
+      handleChangeFilterTravelerType(travelerTypes);
+    };
+
+    this.handleTimeOfYear = function handleTimeOfYear(e) {
+      const { timeOfYear } = this.state;
+      const { handleChangeFilterTimeOfYear } = this.props;
+      const time = e.target.getAttribute('data-key');
+      const otherTimes = Object.keys(timeOfYear).filter((item) => item !== time);
+      const filteredTimes = {};
+      otherTimes.forEach((key) => {
+        filteredTimes[key] = timeOfYear[key];
+      });
+      this.setState({
+        timeOfYear: {
+          ...filteredTimes,
+          [time]: !timeOfYear[time],
+        },
+      });
+      // not just grabbing state and passing it in because setState is async
+      handleChangeFilterTimeOfYear();
+    };
+
+    this.handleLanguage = function handleLanguage(e) {
+      const { handleChangeFilterLanguage } = this.props;
+      const key = e.target.getAttribute('data-key');
+      const val = e.target.checked;
+      this.setState({
+        language: {
+          all: false,
+          english: false,
+          spanish: false,
+          french: false,
+          italian: false,
+          russian: false,
+          [key]: val,
+        },
+      });
+      handleChangeFilterLanguage(key);
+    };
   }
 
   RatingColumn() {
@@ -193,7 +214,7 @@ class ReviewFilters extends React.Component {
   }
 
   TravelerTypeColumn() {
-    const { handleChangeFilterTravelerType, types } = this.state;
+    const { types } = this.state;
     return (
       <Grid item xs={3}>
         <Grid className={this.classes.ratingRow}>
@@ -221,7 +242,7 @@ class ReviewFilters extends React.Component {
         </Grid>
       </Grid>
     );
-  };
+  }
 
   TimeOfYearColumn() {
     const { timeOfYear } = this.state;
@@ -308,6 +329,9 @@ ReviewFilters.propTypes = {
     terrible: Proptypes.number,
   }),
   handleChangeFilterTravelerType: Proptypes.func.isRequired,
+  handleChangeFilterTimeOfYear: Proptypes.func.isRequired,
+  handleChangeFilterLanguage: Proptypes.func.isRequired,
+  handleChangeRatingFilter: Proptypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   classes: Proptypes.object.isRequired,
 };
