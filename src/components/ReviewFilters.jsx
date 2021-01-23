@@ -86,7 +86,7 @@ class ReviewFilters extends React.Component {
     this.classes = props.classes;
 
     this.handleRatings = function handleRatings(e) {
-      const { ratings, handleChangeRatingFilter } = this.state;
+      const { ratings } = this.state;
       const rating = e.target.getAttribute('data-key');
       const otherRatings = Object.keys(ratings).filter((item) => item !== rating);
       const filteredRatings = {};
@@ -115,7 +115,7 @@ class ReviewFilters extends React.Component {
 
       const travelerTypes = [];
       otherTypes.forEach((updatedType) => {
-        if (this.state.types[updatedType]) {
+        if (types[updatedType]) {
           travelerTypes.push(updatedType);
         }
       });

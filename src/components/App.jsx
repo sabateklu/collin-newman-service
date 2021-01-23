@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unused-state */
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 /* eslint-disable no-console */
 import React from 'react';
 import axios from 'axios';
@@ -44,7 +47,6 @@ class App extends React.Component {
   }
 
   handleChangeFilterTravelerType(types) {
-    console.log(types);
     if (types.length === 0) {
       this.setState({ reviewsTravelerTypeFilter: [] });
     } else {
@@ -69,7 +71,6 @@ class App extends React.Component {
   }
 
   handleChangeRatingFilter(rating) {
-    console.log(rating);
     if (rating.length > 0) {
       this.setState({ reviewsRatingFilter: rating });
     } else {
@@ -78,10 +79,14 @@ class App extends React.Component {
   }
 
   getData() {
-    // Im hardcoding the location for now
+    // in the future this would get reviews by location
+    // but that would require outside assistance from another service
+    // to know which location to grab
     axios.get('/api/reviews/')
       .then((res) => {
         this.setState({ reviews: res.data });
+        let myReview = this.state.reviews.filter(review => review.reviewBody === 'Hello world');
+        console.log('my review', myReview);
         this.populateRatingsAndPages();
       })
       .catch((err) => console.log(err));
@@ -102,9 +107,7 @@ class App extends React.Component {
       reviews,
       reviewsBodyFilter,
       reviewsLanguageFilter,
-      reviewsTimeOfYearFilter,
       reviewsTravelerTypeFilter,
-      reviewsRatingFilter,
     } = this.state;
     const applyAllFilters = () => {
       const filteredReviews = reviews.filter((review) => {
@@ -136,15 +139,6 @@ class App extends React.Component {
           return review;
         }
       });
-      // .filter((review) => {
-      //   if (reviewsRatingFilter.includes(review.starRating)) {
-      //     return review;
-      //   }
-      //   if (reviewsRatingFilter.length === 0) {
-      //     return review;
-      //   }
-      // })
-      console.log(filteredReviews);
       return filteredReviews;
     };
 
@@ -194,12 +188,11 @@ class App extends React.Component {
     review.reviewTitle = document.getElementById('titleInput').value;
     review.reviewBody = document.getElementById('bodyInput').value;
     review.userHomeLocation = document.getElementById('homeInput').value;
-    review.starRating = document.getElementById('ratingInput').value;
+    review.starRating = Number(document.getElementById('hiddenInput').value);
     // review.dateOfExperience = document.getElementById('whenInput');
     review.dateOfExperience = Date.now();
     review.destination = 'Bangkok';
-    review.images = document.getElementById('fileInput');
-
+    review.images = [];
     axios.post('/api/reviews', review)
       .then((res) => {
         console.log(res);
