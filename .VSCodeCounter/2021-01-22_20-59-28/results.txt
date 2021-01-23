@@ -1,0 +1,77 @@
+Date : 2021-01-22 20:59:28
+Directory : /Users/collin/Documents/HackReactor/fec/collin-newman-service
+Total : 37 files,  17744 codes, 1562 comments, 1771 blanks, all 21077 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| JSON             |          3 |     11,562 |          0 |          2 |     11,564 |
+| JavaScript       |         22 |      5,050 |      1,465 |      1,690 |      8,205 |
+| JavaScript React |          9 |      1,086 |         97 |         79 |      1,262 |
+| YAML             |          1 |         30 |          0 |          0 |         30 |
+| HTML             |          1 |         15 |          0 |          0 |         15 |
+| Markdown         |          1 |          1 |          0 |          0 |          1 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                 | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                    |         37 |     17,744 |      1,562 |      1,771 |     21,077 |
+| .circleci                                                                                            |          1 |         30 |          0 |          0 |         30 |
+| database                                                                                             |          2 |         78 |          1 |         12 |         91 |
+| dev                                                                                                  |          2 |        257 |          6 |        186 |        449 |
+| dev/database                                                                                         |          2 |        257 |          6 |        186 |        449 |
+| public                                                                                               |          2 |      2,234 |      1,410 |      1,385 |      5,029 |
+| server                                                                                               |          3 |         72 |          1 |         12 |         85 |
+| spec                                                                                                 |         10 |      2,339 |         33 |         79 |      2,451 |
+| spec/client                                                                                          |          8 |        257 |         30 |         64 |        351 |
+| spec/server                                                                                          |          2 |      2,082 |          3 |         15 |      2,100 |
+| src                                                                                                  |          9 |      1,086 |         97 |         79 |      1,262 |
+| src/components                                                                                       |          8 |      1,080 |         96 |         77 |      1,253 |
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                                             | language         | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/.circleci/config.yml                   | YAML             |         30 |          0 |          0 |         30 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/.eslintrc.js                           | JavaScript       |         24 |          0 |          1 |         25 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/README.md                              | Markdown         |          1 |          0 |          0 |          1 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/babel.config.json                      | JSON             |          3 |          0 |          0 |          3 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/database/Reviews.js                    | JavaScript       |         73 |          1 |         10 |         84 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/database/index.js                      | JavaScript       |          5 |          0 |          2 |          7 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/dev/database/sampleData.js             | JavaScript       |        191 |          0 |        182 |        373 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/dev/database/seed.js                   | JavaScript       |         66 |          6 |          4 |         76 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/enzyme.config.js                       | JavaScript       |          4 |          2 |          2 |          8 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/jest.config.js                         | JavaScript       |         13 |         12 |         11 |         36 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/package-lock.json                      | JSON             |     11,479 |          0 |          1 |     11,480 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/package.json                           | JSON             |         80 |          0 |          1 |         81 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/public/bundle.js                       | JavaScript       |      2,219 |      1,410 |      1,385 |      5,014 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/public/index.html                      | HTML             |         15 |          0 |          0 |         15 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/server/createServer.js                 | JavaScript       |         14 |          0 |          3 |         17 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/server/reviewRoutes.js                 | JavaScript       |         53 |          0 |          7 |         60 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/server/server.js                       | JavaScript       |          5 |          1 |          2 |          8 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/App.test.js                | JavaScript       |         65 |          3 |          9 |         77 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/Pagination.test.js         | JavaScript       |         19 |          3 |          6 |         28 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/ReviewCard.test.js         | JavaScript       |         42 |          3 |         13 |         58 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/ReviewFilters.test.js      | JavaScript       |         50 |          3 |         10 |         63 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/ReviewKeywords.test.js     | JavaScript       |          9 |          3 |          4 |         16 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/ReviewList.test.js         | JavaScript       |         24 |          3 |          5 |         32 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/ReviewListControls.test.js | JavaScript       |         32 |          3 |          8 |         43 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/SearchBar.test.js          | JavaScript       |         16 |          9 |          9 |         34 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/server/index.test.js              | JavaScript       |        126 |          3 |         15 |        144 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/server/sampleReviews.js           | JavaScript       |      1,956 |          0 |          0 |      1,956 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/App.jsx                 | JavaScript React |        225 |         10 |         22 |        257 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/Pagination.jsx          | JavaScript React |         14 |          0 |          3 |         17 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/ReviewCard.jsx          | JavaScript React |        192 |          0 |          8 |        200 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/ReviewFilters.jsx       | JavaScript React |        328 |          4 |         18 |        350 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/ReviewKeywords.jsx      | JavaScript React |          3 |          0 |          3 |          6 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/ReviewList.jsx          | JavaScript React |         71 |          0 |          7 |         78 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/ReviewListControls.jsx  | JavaScript React |        171 |         82 |          6 |        259 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/SearchBar.jsx           | JavaScript React |         76 |          0 |         10 |         86 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/src/index.jsx                          | JavaScript React |          6 |          1 |          2 |          9 |
+| /Users/collin/Documents/HackReactor/fec/collin-newman-service/webpack.config.js                      | JavaScript       |         44 |          0 |          2 |         46 |
+| Total                                                                                                |                  |     17,744 |      1,562 |      1,771 |     21,077 |
++------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+

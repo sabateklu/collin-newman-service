@@ -1,0 +1,39 @@
+"filename", "language", "JavaScript React", "JSON", "YAML", "JavaScript", "HTML", "Markdown", "comment", "blank", "total"
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/.circleci/config.yml", "YAML", 0, 0, 30, 0, 0, 0, 0, 0, 30
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/.eslintrc.js", "JavaScript", 0, 0, 0, 24, 0, 0, 0, 1, 25
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/README.md", "Markdown", 0, 0, 0, 0, 0, 1, 0, 0, 1
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/babel.config.json", "JSON", 0, 3, 0, 0, 0, 0, 0, 0, 3
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/database/Reviews.js", "JavaScript", 0, 0, 0, 73, 0, 0, 1, 10, 84
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/database/index.js", "JavaScript", 0, 0, 0, 5, 0, 0, 0, 2, 7
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/dev/database/sampleData.js", "JavaScript", 0, 0, 0, 191, 0, 0, 0, 182, 373
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/dev/database/seed.js", "JavaScript", 0, 0, 0, 66, 0, 0, 6, 4, 76
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/enzyme.config.js", "JavaScript", 0, 0, 0, 4, 0, 0, 2, 2, 8
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/jest.config.js", "JavaScript", 0, 0, 0, 13, 0, 0, 12, 11, 36
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/package-lock.json", "JSON", 0, 11479, 0, 0, 0, 0, 0, 1, 11480
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/package.json", "JSON", 0, 80, 0, 0, 0, 0, 0, 1, 81
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/public/bundle.js", "JavaScript", 0, 0, 0, 2219, 0, 0, 1410, 1385, 5014
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/public/index.html", "HTML", 0, 0, 0, 0, 15, 0, 0, 0, 15
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/server/createServer.js", "JavaScript", 0, 0, 0, 14, 0, 0, 0, 3, 17
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/server/reviewRoutes.js", "JavaScript", 0, 0, 0, 53, 0, 0, 0, 7, 60
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/server/server.js", "JavaScript", 0, 0, 0, 5, 0, 0, 1, 2, 8
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/App.test.js", "JavaScript", 0, 0, 0, 65, 0, 0, 3, 9, 77
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/Pagination.test.js", "JavaScript", 0, 0, 0, 19, 0, 0, 3, 6, 28
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/ReviewCard.test.js", "JavaScript", 0, 0, 0, 42, 0, 0, 3, 13, 58
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/ReviewFilters.test.js", "JavaScript", 0, 0, 0, 50, 0, 0, 3, 10, 63
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/ReviewKeywords.test.js", "JavaScript", 0, 0, 0, 9, 0, 0, 3, 4, 16
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/ReviewList.test.js", "JavaScript", 0, 0, 0, 24, 0, 0, 3, 5, 32
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/ReviewListControls.test.js", "JavaScript", 0, 0, 0, 32, 0, 0, 3, 8, 43
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/client/SearchBar.test.js", "JavaScript", 0, 0, 0, 16, 0, 0, 9, 9, 34
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/server/index.test.js", "JavaScript", 0, 0, 0, 126, 0, 0, 3, 15, 144
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/spec/server/sampleReviews.js", "JavaScript", 0, 0, 0, 1956, 0, 0, 0, 0, 1956
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/App.jsx", "JavaScript React", 225, 0, 0, 0, 0, 0, 10, 22, 257
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/Pagination.jsx", "JavaScript React", 14, 0, 0, 0, 0, 0, 0, 3, 17
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/ReviewCard.jsx", "JavaScript React", 192, 0, 0, 0, 0, 0, 0, 8, 200
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/ReviewFilters.jsx", "JavaScript React", 328, 0, 0, 0, 0, 0, 4, 18, 350
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/ReviewKeywords.jsx", "JavaScript React", 3, 0, 0, 0, 0, 0, 0, 3, 6
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/ReviewList.jsx", "JavaScript React", 71, 0, 0, 0, 0, 0, 0, 7, 78
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/ReviewListControls.jsx", "JavaScript React", 171, 0, 0, 0, 0, 0, 82, 6, 259
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/src/components/SearchBar.jsx", "JavaScript React", 76, 0, 0, 0, 0, 0, 0, 10, 86
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/src/index.jsx", "JavaScript React", 6, 0, 0, 0, 0, 0, 1, 2, 9
+"/Users/collin/Documents/HackReactor/fec/collin-newman-service/webpack.config.js", "JavaScript", 0, 0, 0, 44, 0, 0, 0, 2, 46
+"Total", "-", 1086, 11562, 30, 5050, 15, 1, 1562, 1771, 21077
