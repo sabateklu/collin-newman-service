@@ -82,11 +82,11 @@ class App extends React.Component {
     // in the future this would get reviews by location
     // but that would require outside assistance from another service
     // to know which location to grab
-    axios.get('http://localhost:3000/api/reviews/')
+    axios.get('http://35.163.112.119:3000/api/reviews/')
       .then((res) => {
         this.setState({ reviews: res.data });
-        let myReview = this.state.reviews.filter((review) => review.reviewBody === 'Hello world');
-        console.log('my review', myReview);
+        //let myReview = this.state.reviews.filter((review) => review.reviewBody === 'Hello world');
+        //console.log('my review', myReview);
         this.populateRatingsAndPages();
       })
       .catch((err) => console.log(err));
@@ -110,7 +110,7 @@ class App extends React.Component {
       reviewsTravelerTypeFilter,
     } = this.state;
     const applyAllFilters = () => {
-      const filteredReviews = reviews.filter((review) => {
+      const filteredReviews = this.state.reviews.map((review) => {
         if (review.reviewBody.includes(reviewsBodyFilter)) {
           return review;
         }
@@ -147,7 +147,7 @@ class App extends React.Component {
 
   helpfulClickHandler(e) {
     const id = e.target.getAttribute('data-id');
-    axios.patch(`http://localhost:3000/api/reviews/${id}`)
+    axios.patch(`http://35.163.112.119:3000/api/reviews/${id}`)
       .then(() => {
         this.getData();
       })
@@ -193,7 +193,7 @@ class App extends React.Component {
     review.dateOfExperience = Date.now();
     review.destination = 'Bangkok';
     review.images = [];
-    axios.post('http://localhost:3000/api/reviews', review)
+    axios.post('http://35.163.112.119:3000/api/reviews', review)
       .then((res) => {
         console.log(res);
         this.getData();
